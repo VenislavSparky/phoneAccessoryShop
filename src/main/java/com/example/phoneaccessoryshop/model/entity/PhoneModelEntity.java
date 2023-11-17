@@ -1,9 +1,8 @@
 package com.example.phoneaccessoryshop.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "phone_models")
@@ -14,6 +13,10 @@ public class PhoneModelEntity extends BaseEntity {
 
     @ManyToOne
     private PhoneBrandEntity brand;
+
+    @OneToMany(fetch = FetchType.EAGER,
+            mappedBy = "model")
+    private List<ProductEntity> products;
 
     public String getName() {
         return name;
