@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="navbar" class="container">
+    <nav class="navbar navbar-expand-md navbar-light">
+        <a href="#" class="navbar-brand">
+            <img src="/static/images/logo.png" class="d-inline-block align-top" style="width: 120px;"
+                 alt="Shop Logo"/>
+            <span class="hidden">phoneAccessoryBGLogo</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileMenu"
+                aria-controls="toggleMobileMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="toggleMobileMenu">
+            <ul class="navbar-nav ms-auto text-center">
+                <li>
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Shop</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Cart</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li>
+                    <a class="nav-link login-button" href="#">Login</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Register</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="#">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
