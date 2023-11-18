@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "phone_brands")
 public class PhoneBrandEntity extends BaseEntity {
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(

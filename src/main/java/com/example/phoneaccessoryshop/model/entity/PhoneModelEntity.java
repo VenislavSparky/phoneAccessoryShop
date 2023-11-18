@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "phone_models")
 public class PhoneModelEntity extends BaseEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToOne
