@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
         this.modelMapper = modelMapper;
     }
 
-    private void registerUser(UserRegistrationDTO userRegistrationDTO) {
+    public void registerUser(UserRegistrationDTO userRegistrationDTO) {
         UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
 
         if (!userRegistrationDTO.password().equals(userRegistrationDTO.confirmPassword())) {
