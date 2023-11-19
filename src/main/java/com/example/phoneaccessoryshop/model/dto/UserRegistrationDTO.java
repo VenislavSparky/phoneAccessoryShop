@@ -2,26 +2,28 @@ package com.example.phoneaccessoryshop.model.dto;
 
 
 import com.example.phoneaccessoryshop.model.validation.UniqueUserEmail;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 
 public class UserRegistrationDTO {
     @NotEmpty
+    @Size(min = 3, max = 20, message = "First name length must be between 3 and 20 characters!")
     private String firstName;
     @NotEmpty
+    @Size(min = 3, max = 20, message = "Last name length must be between 3 and 20 characters!")
     private String lastName;
-    @NotNull
+    @NotBlank(message = "Email cannot be empty!")
     @Email
     @UniqueUserEmail
     private String email;
     @NotEmpty
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
     private String password;
     @NotEmpty
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
     private String confirmPassword;
     @Positive
+    @Min(value = 18, message = "User must be at least 18 years old!")
     private Integer age;
 
     public String getFirstName() {

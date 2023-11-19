@@ -1,20 +1,26 @@
 package com.example.phoneaccessoryshop.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
+    @Length(min = 3, max = 20)
     @Column(nullable = false)
     private String firstName;
+    @Length(min = 3, max = 20)
     @Column(nullable = false)
     private String lastName;
+    @Email
     @Column(unique = true)
     private String email;
+    @Length(min = 3, max = 20)
     @Column(nullable = false)
     private String password;
     @Positive

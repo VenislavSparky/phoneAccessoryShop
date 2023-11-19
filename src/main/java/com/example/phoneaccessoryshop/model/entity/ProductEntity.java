@@ -4,11 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.validator.constraints.Length;
 
 import java.math.BigDecimal;
 import java.sql.Types;
@@ -27,7 +25,7 @@ public class ProductEntity extends BaseEntity {
     @ManyToOne
     private PhoneModelEntity model;
     @NotEmpty
-    @Min(40)
+    @Length(min = 10, max = 200)
     private String description;
     @NotNull
     private String color;
@@ -35,7 +33,9 @@ public class ProductEntity extends BaseEntity {
     private BigDecimal price;
     @Positive
     private BigDecimal discount;
+    @FutureOrPresent
     private LocalDateTime discountStartDate;
+    @Future
     private LocalDateTime discountEndDate;
     @Positive
     private Integer quantity;

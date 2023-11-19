@@ -9,7 +9,8 @@
 
 <div class="container mt-5">
     <form th:action="@{/users/register}"
-          th:method="post">
+          th:method="POST"
+          th:object="${userRegistrationDTO}">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow rounded-4 ">
@@ -18,38 +19,52 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <div th:if="${hasRegistrationError}" class="text-danger">Registration Error occurred</div>
                             <div class="col">
                                 <div class="mb-3 form-floating">
                                     <input type="text" name="email" class="form-control" id="email" required
-                                           placeholder="example@mail.com">
+                                           placeholder="example@mail.com" th:field="*{email}" th:errorclass="bg-danger">
                                     <label for="email" class="form-label">Email address</label>
+                                    <small th:if="${#fields.hasErrors('email')}"
+                                           th:errors="*{email}" class="text-danger">Email error message</small>
                                 </div>
                                 <div class="mb-3 form-floating">
-                                    <input type="text" name="age" class="form-control" id="age" required placeholder="18">
-                                    <label for="age" class="form-label">Age</label>
+                                    <input type="text" name="age" class="form-control" id="age" required
+                                           placeholder="18" th:field="*{age}" th:errorclass="bg-danger">
+                                    <label th:unless="${#fields.hasErrors('age')}" for="age" class="form-label">Age</label>
+                                    <label th:if="${#fields.hasErrors('age')}"
+                                           th:errors="*{age}" class="bg-danger text-light">Age error message</label>
                                 </div>
                                 <div class="mb-3 form-floating">
                                     <input type="password" name="password" class="form-control" id="password" required
-                                           placeholder="**********">
+                                           placeholder="*****" th:field="*{password}" th:errorclass="bg-danger">
                                     <label for="password" class="form-label">Password</label>
+                                    <small th:if="${#fields.hasErrors('password')}"
+                                           th:errors="*{password}" class="text-danger">Password error message</small>
                                 </div>
 
                             </div>
                             <div class="col">
                                 <div class="mb-3 form-floating">
                                     <input type="text" name="firstName" class="form-control" id="firstName" required
-                                           placeholder="George">
+                                           placeholder="George" th:field="*{firstName}" th:errorclass="bg-danger">
                                     <label for="firstName" class="form-label">First name</label>
+                                    <small th:if="${#fields.hasErrors('firstName')}"
+                                           th:errors="*{firstName}" class="text-danger">First name error message</small>
                                 </div>
                                 <div class="mb-3 form-floating">
                                     <input type="text" name="lastName" class="form-control" id="lastName" required
-                                           placeholder="George">
+                                           placeholder="George" th:field="*{lastName}">
                                     <label for="lastName" class="form-label">Last name</label>
+                                    <small th:if="${#fields.hasErrors('lastName')}"
+                                           th:errors="*{lastName}" class="text-danger">LastName error message</small>
                                 </div>
                                 <div class="mb-3 form-floating">
-                                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" required
-                                           placeholder="**********">
+                                    <input type="password" name="confirmPassword" class="form-control"
+                                           id="confirmPassword" required placeholder="*****" th:field="*{confirmPassword}" th:errorclass="bg-danger">
                                     <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <small th:if="${#fields.hasErrors('confirmPassword')}"
+                                           th:errors="*{confirmPassword}" class="text-danger">Confirm password error message</small>
                                 </div>
                             </div>
 
