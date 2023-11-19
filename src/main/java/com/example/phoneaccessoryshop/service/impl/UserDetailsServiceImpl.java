@@ -1,8 +1,11 @@
 package com.example.phoneaccessoryshop.service.impl;
 
+import com.example.phoneaccessoryshop.model.entity.RoleEntity;
 import com.example.phoneaccessoryshop.model.entity.UserEntity;
 import com.example.phoneaccessoryshop.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,13 +25,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email).map(this::map).orElseThrow(() -> new UsernameNotFoundException("Username " + email + " not found!"));
+        return userRepository.findByEmail(email)
+                .map(UserDetailsServiceImpl::map)
+                .orElseThrow(() -> new UsernameNotFoundException("Username " + email + " not found!"));
     }
 
-    private UserDetails map(UserEntity userEntity) {
+    private static UserDetails map(UserEntity userEntity) {
       return User.withUsername(userEntity.getEmail())
                 .password(userEntity.getPassword())
-                .authorities(List.of())
+                .authorities(userEntity.getRoles().stream().map(UserDetailsServiceImpl::map).toList())
                 .build();
     }
+
+    private static GrantedAuthority map(RoleEntity roleEntity){
+        return new SimpleGrantedAuthority("ROLE_"+ roleEntity.getRole().name());
+    }
+
 }

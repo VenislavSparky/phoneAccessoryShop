@@ -20,14 +20,14 @@ public class UserEntity extends BaseEntity {
     @Email
     @Column(unique = true)
     private String email;
-    @Length(min = 3, max = 20)
     @Column(nullable = false)
     private String password;
     @Positive
+    @Column(nullable = false)
     private Integer age;
     private boolean active = true;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

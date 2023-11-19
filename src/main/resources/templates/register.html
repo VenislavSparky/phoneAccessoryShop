@@ -21,50 +21,51 @@
                         <div class="row">
                             <div th:if="${hasRegistrationError}" class="text-danger">Registration Error occurred</div>
                             <div class="col">
-                                <div class="mb-3 form-floating">
-                                    <input type="text" name="email" class="form-control" id="email" required
-                                           placeholder="example@mail.com" th:field="*{email}" th:errorclass="bg-danger">
-                                    <label for="email" class="form-label">Email address</label>
-                                    <small th:if="${#fields.hasErrors('email')}"
-                                           th:errors="*{email}" class="text-danger">Email error message</small>
+                                <div class="mb-3 form-floating has-validation">
+                                    <input type="text" name="email" class="form-control" id="email" aria-describedby="emailError" required
+                                           placeholder="example@mail.com" th:field="*{email}" th:errorclass="is-invalid">
+                                    <label th:unless="${#fields.hasErrors('email')}" for="email" class="form-label">Email address</label>
+                                    <label th:if="${#fields.hasErrors('email')}"
+                                           th:errors="*{email}" id="emailError" class="invalid-feedback">Email error message</label>
                                 </div>
-                                <div class="mb-3 form-floating">
-                                    <input type="text" name="age" class="form-control" id="age" required
-                                           placeholder="18" th:field="*{age}" th:errorclass="bg-danger">
+                                <div class="mb-3 form-floating has-validation">
+                                    <input type="text" name="age" class="form-control" id="age" aria-describedby="ageError" required
+                                           placeholder="18" th:field="*{age}" th:errorclass="is-invalid">
                                     <label th:unless="${#fields.hasErrors('age')}" for="age" class="form-label">Age</label>
                                     <label th:if="${#fields.hasErrors('age')}"
-                                           th:errors="*{age}" class="bg-danger text-light">Age error message</label>
+                                           th:errors="*{age}" id="ageError" class="invalid-feedback">Age error message</label>
                                 </div>
-                                <div class="mb-3 form-floating">
-                                    <input type="password" name="password" class="form-control" id="password" required
-                                           placeholder="*****" th:field="*{password}" th:errorclass="bg-danger">
-                                    <label for="password" class="form-label">Password</label>
-                                    <small th:if="${#fields.hasErrors('password')}"
-                                           th:errors="*{password}" class="text-danger">Password error message</small>
+                                <div class="mb-3 form-floating has-validation">
+                                    <input type="password" name="password" class="form-control" id="password" aria-describedby="passwordError" required
+                                           placeholder="*****" th:field="*{password}" th:errorclass="is-invalid">
+                                    <label th:unless="${#fields.hasErrors('password')}" for="password" class="form-label">Password</label>
+                                    <label th:if="${#fields.hasErrors('password')}"
+                                           th:errors="*{password}" id="passwordError" class="invalid-feedback">Password error message</label>
+
                                 </div>
 
                             </div>
                             <div class="col">
-                                <div class="mb-3 form-floating">
-                                    <input type="text" name="firstName" class="form-control" id="firstName" required
-                                           placeholder="George" th:field="*{firstName}" th:errorclass="bg-danger">
-                                    <label for="firstName" class="form-label">First name</label>
-                                    <small th:if="${#fields.hasErrors('firstName')}"
-                                           th:errors="*{firstName}" class="text-danger">First name error message</small>
+                                <div class="mb-3 form-floating has-validation">
+                                    <input type="text" name="firstName" class="form-control" id="firstName" aria-describedby="firstNameError" required
+                                           placeholder="George" th:field="*{firstName}" th:errorclass="is-invalid">
+                                    <label th:unless="${#fields.hasErrors('firstName')}" for="firstName" class="form-label">First name</label>
+                                    <label th:if="${#fields.hasErrors('firstName')}"
+                                           th:errors="*{firstName}" id="firstNameError" class="invalid-feedback">First name error message</label>
                                 </div>
-                                <div class="mb-3 form-floating">
-                                    <input type="text" name="lastName" class="form-control" id="lastName" required
-                                           placeholder="George" th:field="*{lastName}">
-                                    <label for="lastName" class="form-label">Last name</label>
-                                    <small th:if="${#fields.hasErrors('lastName')}"
-                                           th:errors="*{lastName}" class="text-danger">LastName error message</small>
+                                <div class="mb-3 form-floating has-validation">
+                                    <input type="text" name="lastName" class="form-control" id="lastName" aria-describedby="lastNameError" required
+                                           placeholder="George" th:field="*{lastName}" th:errorclass="is-invalid">
+                                    <label th:unless="${#fields.hasErrors('lastName')}" for="lastName" class="form-label">Last name</label>
+                                    <label th:if="${#fields.hasErrors('lastName')}"
+                                           th:errors="*{lastName}" id="lastNameError" class="invalid-feedback">LastName error message</label>
                                 </div>
-                                <div class="mb-3 form-floating">
-                                    <input type="password" name="confirmPassword" class="form-control"
-                                           id="confirmPassword" required placeholder="*****" th:field="*{confirmPassword}" th:errorclass="bg-danger">
-                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                    <small th:if="${#fields.hasErrors('confirmPassword')}"
-                                           th:errors="*{confirmPassword}" class="text-danger">Confirm password error message</small>
+                                <div class="mb-3 form-floating has-validation">
+                                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" aria-describedby="confirmPasswordError" required
+                                           placeholder="*****" th:field="*{confirmPassword}" th:errorclass="is-invalid">
+                                    <label th:unless="${#fields.hasErrors('confirmPassword')}" for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <label th:if="${#fields.hasErrors('confirmPassword')}"
+                                           th:errors="*{confirmPassword}" id="confirmPasswordError" class="invalid-feedback">Confirm password error message</label>
                                 </div>
                             </div>
 

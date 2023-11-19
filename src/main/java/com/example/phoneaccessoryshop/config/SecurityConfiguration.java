@@ -1,5 +1,6 @@
 package com.example.phoneaccessoryshop.config;
 
+import com.example.phoneaccessoryshop.model.enums.UserRoleEnum;
 import com.example.phoneaccessoryshop.repository.UserRepository;
 import com.example.phoneaccessoryshop.service.impl.UserDetailsServiceImpl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -20,7 +21,8 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(
                 authorizeRequest -> authorizeRequest
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                        .requestMatchers("/", "/users/login", "/users/register","/users/login-error").permitAll()
+                        .requestMatchers("/admin/panel").hasRole(UserRoleEnum.ADMIN.name())
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin -> {

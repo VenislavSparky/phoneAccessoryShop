@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head}">
     <title>Login</title></head>
 <body>
@@ -9,20 +10,22 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6 ">
-
             <div class="card shadow rounded-4">
                 <div class="card-header">
                     Login
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form th:method="POST"
+                          th:action="@{/users/login}">
                         <div class="mb-3 form-floating">
-                            <input type="email" class="form-control" id="email" required placeholder="example@mail.com">
+                            <input name="email" type="email" class="form-control" id="email" required
+                                   placeholder="example@mail.com">
                             <label for="email" class="form-label">Email address</label>
                         </div>
 
                         <div class="mb-3 form-floating">
-                            <input type="password" class="form-control" id="password" required placeholder="**********">
+                            <input type="password" name="password" class="form-control" id="password" required
+                                   placeholder="**********">
                             <label for="password" class="form-label">Password</label>
                         </div>
 
@@ -31,10 +34,14 @@
                             <label class="form-check-label" for="remember">Remember me</label>
                         </div>
 
+                        <p th:if="${bad_credentials}" class="errors alert alert-danger">
+                            Invalid username or password.
+                        </p>
+
                         <div class="row justify-content-center">
                             <div class="col">
                                 <div class="mb-3">
-                                    <button type="button" class="btn btn-primary w-100">Login</button>
+                                    <button type="submit" class="btn btn-primary w-100">Login</button>
                                 </div>
                             </div>
                             <div class="col">
@@ -46,13 +53,9 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </form>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
