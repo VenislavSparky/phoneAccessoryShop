@@ -2,6 +2,7 @@ package com.example.phoneaccessoryshop.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class UserEntity extends BaseEntity {
     private String email;
     @Column(nullable = false)
     private String password;
+    @Positive
+    private Integer age;
     private boolean active = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -72,5 +75,13 @@ public class UserEntity extends BaseEntity {
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

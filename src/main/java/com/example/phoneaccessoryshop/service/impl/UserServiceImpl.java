@@ -23,14 +23,14 @@ public class UserServiceImpl implements UserService {
     }
 
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
-        UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
 
-        if (!userRegistrationDTO.password().equals(userRegistrationDTO.confirmPassword())) {
+        if (!userRegistrationDTO.getPassword().equals(userRegistrationDTO.getConfirmPassword())) {
             throw new IllegalArgumentException("The passwords doesnt match!");
         }
 
+        UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
         user.setActive(true);
-        user.setPassword(passwordEncoder.encode(userRegistrationDTO.password()));
+        user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         userRepository.save(user);
 
     }
