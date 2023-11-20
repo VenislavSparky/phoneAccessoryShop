@@ -3,6 +3,8 @@ package com.example.phoneaccessoryshop.service.impl;
 import com.example.phoneaccessoryshop.model.dto.UserRegistrationDTO;
 import com.example.phoneaccessoryshop.model.entity.RoleEntity;
 import com.example.phoneaccessoryshop.model.entity.UserEntity;
+import com.example.phoneaccessoryshop.model.enums.UserRoleEnum;
+import com.example.phoneaccessoryshop.repository.RoleRepository;
 import com.example.phoneaccessoryshop.repository.UserRepository;
 import com.example.phoneaccessoryshop.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -15,11 +17,13 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
     }
@@ -30,13 +34,14 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Password mismatch!");
         }
 
-
         UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
 
         user.setActive(true);
+        user.setRoles(List.of(roleRepository.findRoleByRole(UserRoleEnum.USER)));
         user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
 
         userRepository.save(user);
+
         return true;
     }
 
