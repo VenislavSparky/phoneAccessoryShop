@@ -1,5 +1,5 @@
 INSERT INTO users (first_name, last_name, email, password, age, active)
-VALUES ('admin', 'adminov', 'admin@example.com', 'admin123', 30, true),
+VALUES ('admin', 'adminov', 'admin@example.com', '513a48da81eeff9a0bc84279ee002f3113533f5f4488af4eb61b8e237917f976a3e4eef237309ea95f4d77d608e4eba7', 30, true),
        ('Alice', 'Smith', 'alice.smith@example.com', '$pbkdf2-sha256$10000$xyzabc$pqrstuvw1234567890', 30, true),
        ('Bob', 'Johnson', 'bob.johnson@example.com', '$pbkdf2-sha256$10000$lmnopq$abcdefgh1234567890', 28, true),
        ('Emily', 'White', 'emily.white@example.com', '$pbkdf2-sha256$10000$ijklmn$opqrstuvwxyz1234567890', 35, true),

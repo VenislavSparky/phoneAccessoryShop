@@ -1,4 +1,5 @@
 package com.example.phoneaccessoryshop.service.impl;
+import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
 import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
 import com.example.phoneaccessoryshop.service.ModelService;
@@ -12,8 +13,8 @@ public class ModelServiceImpl implements ModelService {
         this.modelRepository = modelRepository;
     }
 
-    public void addModel(PhoneModelEntity model) {
-        modelRepository.save(model);
-    }
+    @Override
+    public void addModel(AddModelDTO addModelDTO) {
 
+    }
 }

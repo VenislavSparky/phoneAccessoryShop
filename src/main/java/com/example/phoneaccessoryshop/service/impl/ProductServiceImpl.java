@@ -1,4 +1,5 @@
 package com.example.phoneaccessoryshop.service.impl;
+import com.example.phoneaccessoryshop.model.dto.AddProductDTO;
 import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.repository.ProductRepository;
 import com.example.phoneaccessoryshop.service.ProductService;
@@ -12,8 +13,8 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
     }
 
-    public void addProduct(ProductEntity product) {
-        productRepository.save(product);
-    }
+    @Override
+    public void addProduct(AddProductDTO addProductDTO) {
 
+    }
 }
