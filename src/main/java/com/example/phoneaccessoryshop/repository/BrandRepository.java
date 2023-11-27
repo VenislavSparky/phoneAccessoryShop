@@ -11,4 +11,7 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<PhoneBrandEntity, Long> {
     @Query("SELECT b FROM PhoneBrandEntity b")
     List<PhoneBrandEntity> getAllBrands();
+
+    PhoneBrandEntity findByName(String brandName);
+
 }

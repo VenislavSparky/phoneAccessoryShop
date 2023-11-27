@@ -1,7 +1,7 @@
 package com.example.phoneaccessoryshop.model.dto;
 
 import jakarta.validation.constraints.NotEmpty;
-public class BrandsDTO {
+public class BrandDTO {
 
     @NotEmpty
     private String name;

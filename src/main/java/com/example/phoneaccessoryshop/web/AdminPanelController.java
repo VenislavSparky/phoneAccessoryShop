@@ -1,6 +1,6 @@
 package com.example.phoneaccessoryshop.web;
 
-import com.example.phoneaccessoryshop.model.dto.BrandsDTO;
+import com.example.phoneaccessoryshop.model.dto.BrandDTO;
 import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
 import com.example.phoneaccessoryshop.model.dto.AddProductDTO;
 import com.example.phoneaccessoryshop.service.BrandService;
@@ -33,12 +33,12 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/brands")
-    public String addBrands(@ModelAttribute("addBrandDTO") BrandsDTO addBrandDTO) {
+    public String addBrands(@ModelAttribute("addBrandDTO") BrandDTO addBrandDTO) {
         return "admin-add-brand";
     }
 
     @PostMapping("/admin/brands")
-    public String addBrands(@ModelAttribute("addBrandDTO") @Valid BrandsDTO addBrandDTO, BindingResult bindingResult) {
+    public String addBrands(@ModelAttribute("addBrandDTO") @Valid BrandDTO addBrandDTO, BindingResult bindingResult) {
 
         brandService.addBrand(addBrandDTO);
 

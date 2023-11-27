@@ -16,7 +16,7 @@
                 Add Model
             </button>
             <div class="modal fade" id="addModelModal" tabindex="-1" role="dialog" aria-labelledby="addModelModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="addModalModalTitle">
@@ -31,7 +31,22 @@
                               th:method="POST"
                               th:object="${addModelDTO}">
                             <div class="modal-body">
-                                <div class="mb-3 form-floating has-validation">
+                                    <select id="brandName"
+                                        th:name="brandName"
+                                        th:errorclass="is-invalid"
+                                        class="form-select">
+                                        <option value="">- Select a Brand -</option>
+                                            <optgroup label="Brand:">
+                                                <option
+                                                    th:each="brand : ${brands}"
+                                                    th:text="${brand.getName()}"
+                                                    th:value="${brand.getName()}"
+                                                    th:selected="*{brandName} == ${brand.name}">
+                                                    Brand
+                                                </option>
+                                            </optgroup>
+                                    </select>
+                                <div class="mb-3 mt-3 form-floating has-validation">
                                     <input type="text" name="name" class="form-control" id="name"
                                            aria-describedby="nameError" required
                                            placeholder="A54">

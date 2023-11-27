@@ -1,13 +1,12 @@
 package com.example.phoneaccessoryshop.service;
 
-import com.example.phoneaccessoryshop.model.dto.BrandsDTO;
-import com.example.phoneaccessoryshop.model.entity.PhoneBrandEntity;
+import com.example.phoneaccessoryshop.model.dto.BrandDTO;
 
 import java.util.List;
 
 
 public interface BrandService {
-    boolean addBrand(BrandsDTO addBrandDTO);
+    boolean addBrand(BrandDTO addBrandDTO);
 
-    List<PhoneBrandEntity> getAllBrands();
+    List<BrandDTO> getAllBrands();
 }
