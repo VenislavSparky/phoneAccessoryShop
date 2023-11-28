@@ -62,7 +62,11 @@ public class AdminPanelController {
     }
 
     @GetMapping("/admin/products")
-    public String addProducts(@ModelAttribute("addProductDTO") AddProductDTO addProductDTO) {
+    public String addProducts(Model model) {
+        if (!model.containsAttribute("addProductDTO")) {
+            model.addAttribute("addProductDTO", AddProductDTO.empty());
+        }
+        model.addAttribute("models", modelService.getAllModels());
         return "admin-add-product";
     }
 

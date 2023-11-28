@@ -26,6 +26,9 @@ public class AddModelDTO {
         this.name = name;
     }
 
+    public AddModelDTO() {
+    }
+
     public AddModelDTO(String brandName, String name) {
         this.brandName = brandName;
         this.name = name;

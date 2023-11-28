@@ -1,21 +1,28 @@
 package com.example.phoneaccessoryshop.service.impl;
 
 import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
+import com.example.phoneaccessoryshop.model.dto.BrandDTO;
 import com.example.phoneaccessoryshop.model.entity.PhoneBrandEntity;
 import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
 import com.example.phoneaccessoryshop.repository.BrandRepository;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
 import com.example.phoneaccessoryshop.service.ModelService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ModelServiceImpl implements ModelService {
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
+    private final ModelMapper modelMapper;
+    private List<PhoneModelEntity> allModels;
 
-    public ModelServiceImpl(ModelRepository modelRepository, BrandRepository brandRepository) {
+    public ModelServiceImpl(ModelRepository modelRepository, BrandRepository brandRepository, ModelMapper modelMapper) {
         this.modelRepository = modelRepository;
         this.brandRepository = brandRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -28,5 +35,11 @@ public class ModelServiceImpl implements ModelService {
         model.setBrand(brand);
 
         modelRepository.save(model);
+    }
+
+    @Override
+    public List<AddModelDTO> getAllModels() {
+        allModels = modelRepository.getAllModels();
+        return allModels.stream().map(model -> modelMapper.map(model, AddModelDTO.class)).toList();
     }
 }
