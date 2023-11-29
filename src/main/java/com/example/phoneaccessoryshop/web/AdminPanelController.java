@@ -67,12 +67,14 @@ public class AdminPanelController {
             model.addAttribute("addProductDTO", AddProductDTO.empty());
         }
         model.addAttribute("models", modelService.getAllModels());
+        model.addAttribute("products", productService.getAllProducts());
         return "admin-add-product";
     }
 
     @PostMapping("/admin/products")
-    public String addProducts(@ModelAttribute("addProductDTO") @Valid AddProductDTO addProductDTO, BindingResult bindingResult) {
+    public String addProducts(Model model, @ModelAttribute("addProductDTO") @Valid AddProductDTO addProductDTO, BindingResult bindingResult) {
         productService.addProduct(addProductDTO);
+        model.addAttribute("products", productService.getAllProducts());
         return "admin-add-product";
     }
 }

@@ -150,17 +150,18 @@
                         <th scope="col">Model</th>
                         <th scope="col">Product</th>
                         <th scope="col">Product SN</th>
-                        <th scope="col" class="text-center">Orders Count</th>
+                        <th scope="col" class="text-center">Quantity</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr  th:each="product: ${products}"
+                         th:object="${product}">
                         <th scope="row">1</th>
-                        <td>Samsung</td>
-                        <td>A54</td>
-                        <td>Black Case</td>
-                        <td>12312351</td>
-                        <td class="text-center">4</td>
+                        <td th:text="*{brand()}">Samsung</td>
+                        <td th:text="*{model()}">A54</td>
+                        <td th:text="*{name()}">Black Case</td>
+                        <td th:text="*{productSN()}">12312351</td>
+                        <td th:text="*{quantity()}" class="text-center">4</td>
                     </tr>
                     </tbody>
                 </table>

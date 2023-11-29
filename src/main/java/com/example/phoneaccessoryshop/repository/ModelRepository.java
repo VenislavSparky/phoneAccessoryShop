@@ -10,4 +10,5 @@ public interface ModelRepository extends JpaRepository<PhoneModelEntity, Long> {
     @Query("SELECT m FROM PhoneModelEntity m")
     List<PhoneModelEntity> getAllModels();
 
+    PhoneModelEntity findByName(String modelName);
 }
