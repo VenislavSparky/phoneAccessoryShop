@@ -1,9 +1,6 @@
 package com.example.phoneaccessoryshop.web;
 
-import com.example.phoneaccessoryshop.model.dto.BrandDTO;
-import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
 import com.example.phoneaccessoryshop.model.dto.AddProductDTO;
-import com.example.phoneaccessoryshop.service.BrandService;
 import com.example.phoneaccessoryshop.service.ModelService;
 import com.example.phoneaccessoryshop.service.ProductService;
 import jakarta.validation.Valid;
@@ -15,50 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class AdminPanelController {
+public class ProductsController {
 
-    private final BrandService brandService;
     private final ModelService modelService;
     private final ProductService productService;
 
-    public AdminPanelController(BrandService brandService, ModelService modelService, ProductService productService) {
-        this.brandService = brandService;
+    public ProductsController(ModelService modelService, ProductService productService) {
         this.modelService = modelService;
         this.productService = productService;
-    }
-
-    @GetMapping("/admin/panel")
-    public String adminPanel() {
-        return "admin-panel";
-    }
-
-    @GetMapping("/admin/brands")
-    public String addBrands(@ModelAttribute("addBrandDTO") BrandDTO addBrandDTO) {
-        return "admin-add-brand";
-    }
-
-    @PostMapping("/admin/brands")
-    public String addBrands(@ModelAttribute("addBrandDTO") @Valid BrandDTO addBrandDTO, BindingResult bindingResult) {
-
-        brandService.addBrand(addBrandDTO);
-
-        return "admin-add-brand";
-    }
-
-    @GetMapping("/admin/models")
-    public String addModels(Model model) {
-        if (!model.containsAttribute("addModelDTO")) {
-            model.addAttribute("addModelDTO", AddModelDTO.empty());
-        }
-
-        model.addAttribute("brands", brandService.getAllBrands());
-        return "admin-add-model";
-    }
-
-    @PostMapping("/admin/models")
-    public String addModels(@ModelAttribute("addModelDTO") @Valid AddModelDTO addModelDTO, BindingResult bindingResult) {
-       modelService.addModel(addModelDTO);
-        return "admin-add-model";
     }
 
     @GetMapping("/admin/products")

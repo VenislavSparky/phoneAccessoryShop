@@ -26,6 +26,10 @@ public class UserRegistrationDTO {
     @Min(value = 18, message = "User must be at least 18 years old!")
     private Integer age;
 
+    public String fullName() {
+        return firstName + " " + lastName;
+    }
+
     public String getFirstName() {
         return firstName;
     }

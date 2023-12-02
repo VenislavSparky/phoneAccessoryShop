@@ -1,6 +1,5 @@
 package com.example.phoneaccessoryshop.model.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -21,7 +20,7 @@ public class ProductEntity extends BaseEntity {
     private String name;
     @NotNull
     @JdbcTypeCode(Types.VARCHAR)
-    private UUID productNumber;
+    private UUID uuid;
     @ManyToOne
     private PhoneModelEntity model;
     @NotEmpty
@@ -50,12 +49,12 @@ public class ProductEntity extends BaseEntity {
         this.name = name;
     }
 
-    public UUID getProductNumber() {
-        return productNumber;
+    public UUID getUuid() {
+        return uuid;
     }
 
-    public void setProductNumber(UUID productNumber) {
-        this.productNumber = productNumber;
+    public void setUuid(UUID productNumber) {
+        this.uuid = productNumber;
     }
 
     public PhoneModelEntity getModel() {

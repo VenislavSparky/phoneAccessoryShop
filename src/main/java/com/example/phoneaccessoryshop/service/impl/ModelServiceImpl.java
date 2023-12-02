@@ -2,8 +2,10 @@ package com.example.phoneaccessoryshop.service.impl;
 
 import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
 import com.example.phoneaccessoryshop.model.dto.BrandDTO;
+import com.example.phoneaccessoryshop.model.dto.ModelViewDTO;
 import com.example.phoneaccessoryshop.model.entity.PhoneBrandEntity;
 import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
+import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.repository.BrandRepository;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
 import com.example.phoneaccessoryshop.service.ModelService;
@@ -41,5 +43,22 @@ public class ModelServiceImpl implements ModelService {
     public List<AddModelDTO> getAllModels() {
         allModels = modelRepository.getAllModels();
         return allModels.stream().map(model -> modelMapper.map(model, AddModelDTO.class)).toList();
+    }
+
+    @Override
+    public List<ModelViewDTO> getAllModelsView() {
+        return modelRepository.getAllModels().stream().map(ModelServiceImpl::map).toList();
+    }
+
+    @Override
+    public void deleteModel(Long id) {
+        modelRepository.deleteById(id);
+    }
+
+    public static ModelViewDTO map(PhoneModelEntity model) {
+
+        int totalQuantity = model.getProducts().stream().mapToInt(ProductEntity::getQuantity).sum();
+
+        return new ModelViewDTO(model.getId(), model.getName(), model.getProducts().size(), totalQuantity);
     }
 }

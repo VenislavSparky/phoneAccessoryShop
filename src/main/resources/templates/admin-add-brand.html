@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments/head}">
     <title>Add Brand</title>
 </head>
@@ -12,9 +12,7 @@
     <div class="row my-1">
         <h3 class="fs-1 mb-1 w-75">Admin Panel</h3>
         <div class="button w-25">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBrandModal">
-                Add Brand
-            </button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBrandModal">Add Brand</button>
             <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addBrandModalTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -74,15 +72,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Samsung</td>
-                            <td class="text-center">5</td>
-                            <td class="text-center">4</td>
-                            <td class="text-center">
-                                <div class="container">
-                                    <button type="button" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</button>
-                                    <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</button>
+                        <tr th:each="brand: ${brandView}"
+                            th:object="${brand}" style="height: 48px;">
+                            <th th:text="*{id()}" scope="row">1</th>
+                            <td th:text="*{name()}" class="text-center align-middle" >Samsung</td>
+                            <td th:text="*{countModels()}" class="text-center align-middle">5</td>
+                            <td th:text="*{countProducts()}" class="text-center align-middle">4</td>
+                            <td class="text-center align-middle">
+                                <div class="container align-middle">
+                                    <form th:method="update"
+                                          th:action="@{/admin/brand/{brandId}(brandId=*{id})}" style="display:inline" >
+                                        <button type="submit" class="btn btn-warning btn-sm "><i class="fas fa-edit"></i> Edit</button>
+                                    </form>
+                                    <form th:method="delete"
+                                          th:action="@{/admin/brands/{brandId}(brandId=*{id})}" style="display:inline">
+                                        <button type="submit"  class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

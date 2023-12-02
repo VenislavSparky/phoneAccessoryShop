@@ -25,3 +25,10 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.springframework.security: TRACE
+
+mail:
+  phoneAccessoryMail: "phoneAccessoryBulgaria@example.com"
+  host: localhost
+  port: 1025
+  username: ${MAIL_USER:testuser}
+  password: ${MAIL_PASSWORD:testpass}

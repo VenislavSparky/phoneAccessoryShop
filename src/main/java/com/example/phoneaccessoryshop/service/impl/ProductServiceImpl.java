@@ -1,12 +1,16 @@
 package com.example.phoneaccessoryshop.service.impl;
 
 import com.example.phoneaccessoryshop.model.dto.AddProductDTO;
+import com.example.phoneaccessoryshop.model.dto.ProductSummaryDTO;
 import com.example.phoneaccessoryshop.model.dto.ProductViewDTO;
 import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
 import com.example.phoneaccessoryshop.repository.ProductRepository;
 import com.example.phoneaccessoryshop.service.ProductService;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity product = modelMapper.map(addProductDTO, ProductEntity.class);
         product.setModel(modelRepository.findByName(addProductDTO.getModelName()));
-        product.setProductNumber(UUID.randomUUID());
+        product.setUuid(UUID.randomUUID());
         productRepository.save(product);
 
     }
@@ -39,7 +43,16 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getAllProducts().stream().map(ProductServiceImpl::map).toList();
     }
 
+    @Override
+    public Page<ProductSummaryDTO> getAllProductsSummary(Pageable pageable) {
+        pageable = PageRequest.of(1,6);
+       return productRepository.findAll(pageable).map(ProductServiceImpl::mapAsSummary);
+    }
+    private static ProductSummaryDTO mapAsSummary(ProductEntity product ) {
+        return new ProductSummaryDTO(product.getName(), product.getUuid().toString(),product.getPrice(),product.getDiscount(), product.getImageUrl());
+    }
+
     private static ProductViewDTO map(ProductEntity product){
-        return new ProductViewDTO(product.getModel().getBrand().getName(),product.getModel().getName(), product.getName(), product.getProductNumber(),product.getQuantity());
+        return new ProductViewDTO(product.getModel().getBrand().getName(),product.getModel().getName(), product.getName(), product.getUuid(),product.getQuantity());
     }
 }

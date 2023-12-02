@@ -4,7 +4,7 @@
     display: none;
 }
 body{
-    background-image: url('../images/light_background.jpg');
+    background-image: url('../images/background.jpeg');
     background-size: cover; 
     background-repeat:initial;
     font-family: 'Poppins', serif
@@ -59,4 +59,9 @@ li {
 
  .table-hover tbody tr div .btn {
      display: none;
+ }
+
+ .custom-table-container {
+     max-height: 65vh;
+     overflow-y: auto;
  }

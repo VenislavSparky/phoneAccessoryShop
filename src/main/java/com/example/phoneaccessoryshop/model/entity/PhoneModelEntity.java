@@ -15,7 +15,8 @@ public class PhoneModelEntity extends BaseEntity {
     private PhoneBrandEntity brand;
 
     @OneToMany(fetch = FetchType.EAGER,
-            mappedBy = "model")
+            mappedBy = "model",
+            cascade = CascadeType.REMOVE)
     private List<ProductEntity> products;
 
     public String getName() {
@@ -32,5 +33,9 @@ public class PhoneModelEntity extends BaseEntity {
 
     public void setBrand(PhoneBrandEntity brand) {
         this.brand = brand;
+    }
+
+    public List<ProductEntity> getProducts() {
+        return products;
     }
 }

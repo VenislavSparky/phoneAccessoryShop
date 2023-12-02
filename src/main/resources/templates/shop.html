@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+    <title>Shop</title>
+</head>
+<body>
+<div th:replace="~{fragments/navbar}"></div>
+
+<div class="container-fluid mt-2">
+    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+        <div th:each="product: ${allProductsSummary}"
+             th:object="${product}"
+             class="offer card col-sm-6 col-md-3 col-lg-2 m-1 p-0">
+
+            <img src="/images/phone.png" class="card-img-top rounded-lg" alt="Product Image">
+            <div class="card-body pb-2">
+                <h5 th:text="*{name()}" class="card-title">Product Name</h5>
+                <p th:text="'$' + *{price()}" class="card-text">Price: $19.99</p>
+                <button class="btn btn-primary"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="btn btn-info ml-2">
+                    <a class="card-link" th:href="@{/shop/{productNumber}(productNumber=*{productNumber()})}">Details</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

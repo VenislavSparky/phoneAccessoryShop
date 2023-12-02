@@ -12,7 +12,7 @@ public class PhoneBrandEntity extends BaseEntity {
 
     @OneToMany(
             fetch = FetchType.LAZY,
-            mappedBy = "brand"
+            mappedBy = "brand",cascade = CascadeType.REMOVE
     )
     private List<PhoneModelEntity> models;
 
