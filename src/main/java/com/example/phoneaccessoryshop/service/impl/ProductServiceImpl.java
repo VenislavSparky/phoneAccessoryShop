@@ -45,9 +45,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductSummaryDTO> getAllProductsSummary(Pageable pageable) {
-        pageable = PageRequest.of(1,6);
        return productRepository.findAll(pageable).map(ProductServiceImpl::mapAsSummary);
     }
+
+    @Override
+    public ProductEntity findByUUID(UUID uuid) {
+        return productRepository.findByUUID(uuid);
+    }
+
     private static ProductSummaryDTO mapAsSummary(ProductEntity product ) {
         return new ProductSummaryDTO(product.getName(), product.getUuid().toString(),product.getPrice(),product.getDiscount(), product.getImageUrl());
     }
