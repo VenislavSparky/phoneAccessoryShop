@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public boolean addBrand(BrandDTO addBrandDTO) {
         PhoneBrandEntity brand = modelMapper.map(addBrandDTO, PhoneBrandEntity.class);
-
+        brand.setModels(new ArrayList<>());
         brandRepository.save(brand);
 
         return false;

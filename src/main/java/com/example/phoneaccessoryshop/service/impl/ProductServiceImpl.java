@@ -45,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<ProductSummaryDTO> getAllProductsSummary(Pageable pageable) {
-       return productRepository.findAll(pageable).map(ProductServiceImpl::mapAsSummary);
+        return productRepository.findAll(pageable).map(ProductServiceImpl::mapAsSummary);
     }
 
     @Override
@@ -53,11 +53,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByUUID(uuid);
     }
 
-    private static ProductSummaryDTO mapAsSummary(ProductEntity product ) {
-        return new ProductSummaryDTO(product.getName(), product.getUuid().toString(),product.getPrice(),product.getDiscount(), product.getImageUrl());
+    private static ProductSummaryDTO mapAsSummary(ProductEntity product) {
+        return new ProductSummaryDTO(product.getName(), product.getUuid().toString(), product.getPrice(), product.getDiscount(), product.getImageUrl());
     }
 
-    private static ProductViewDTO map(ProductEntity product){
-        return new ProductViewDTO(product.getModel().getBrand().getName(),product.getModel().getName(), product.getName(), product.getUuid(),product.getQuantity());
+    private static ProductViewDTO map(ProductEntity product) {
+        return new ProductViewDTO(product.getModel().getBrand().getName(), product.getModel().getName(), product.getName(), product.getUuid(), product.getQuantity());
     }
 }

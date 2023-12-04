@@ -41,7 +41,7 @@
                                                 th:each="brand : ${brands}"
                                                 th:text="${brand.getName()}"
                                                 th:value="${brand.getName()}"
-                                                th:selected="*{brandName} == ${brand.name}">
+                                                th:selected="*{brandName} == ${brand.getName()}">
                                             Brand
                                         </option>
                                     </optgroup>

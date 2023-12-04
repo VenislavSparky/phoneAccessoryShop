@@ -1,6 +1,7 @@
 package com.example.phoneaccessoryshop.web;
 
 
+import com.example.phoneaccessoryshop.model.dto.BrandDTO;
 import com.example.phoneaccessoryshop.model.dto.ProductSummaryDTO;
 import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.model.entity.UserEntity;
@@ -10,12 +11,10 @@ import com.example.phoneaccessoryshop.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.util.UUID;
@@ -33,38 +32,29 @@ public class ShopController {
         this.userService = userService;
     }
 
-    @GetMapping("/shop/products/{pageNumber}")
-    public String shopProducts(Model model, @PageableDefault(
-            size = 6,
-            sort = "uuid"
-    ) Pageable pageable, @PathVariable("pageNumber") int pageNumber) {
-        Page<ProductSummaryDTO> allProductsSummary = productService.getAllProductsSummary(pageable.withPage(pageNumber));
-        model.addAttribute("allProductsSummary", allProductsSummary);
+    @GetMapping("/shop/products/")
+    public String shopProducts(Model model, @RequestParam(name = "sortOption", defaultValue = "uuid") String sortOption, @RequestParam(name = "page", defaultValue = "1") int page) {
+
+        getPage(model, page, sortOption);
+
         return "shop";
     }
 
-    @GetMapping("/shop/products/next")
-    public String nextPage(Model model, @PageableDefault(
-            size = 6,
-            sort = "uuid"
-    ) Pageable pageable) {
-Pageable pageableMove = PageRequest.of(3,6);
-        Page<ProductSummaryDTO> allProductsSummary = productService.getAllProductsSummary(pageableMove);
-        model.addAttribute("allProductsSummary", allProductsSummary);
-        return "shop";
-    }
-
-    @GetMapping("/shop/products/prev")
-    public String prevPage(Model model, @PageableDefault(
-            size = 6,
-            sort = "uuid"
-    ) Pageable pageable) {
 
 
+    private void getPage(Model model, @RequestParam(name = "page", defaultValue = "1") int page, String sortOption) {
+
+        Sort sort = Sort.by(sortOption);
+
+        Pageable pageable = PageRequest.of(page - 1, 15, sort);
         Page<ProductSummaryDTO> allProductsSummary = productService.getAllProductsSummary(pageable);
+
         model.addAttribute("allProductsSummary", allProductsSummary);
-        return "shop";
+        model.addAttribute("currentPage", pageable.getPageNumber() + 1);
+        model.addAttribute("currentSort", sortOption);
+        model.addAttribute("totalPages", allProductsSummary.getTotalPages());
     }
+
 
     @PostMapping("/shop/cart/add/{productNumber}")
     public String addToCart(@PathVariable("productNumber") UUID uuid, Principal principal) {
