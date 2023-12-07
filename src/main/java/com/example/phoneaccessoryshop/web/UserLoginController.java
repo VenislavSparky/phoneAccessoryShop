@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserLoginController {
-    @GetMapping("/users/login")
+    @GetMapping("/user/login")
     public String login() {
         return "login";
     }
 
-    @PostMapping("/users/login-error")
+    @PostMapping("/user/login-error")
     public String onFailure(
             @ModelAttribute("email") String email,
             Model model) {

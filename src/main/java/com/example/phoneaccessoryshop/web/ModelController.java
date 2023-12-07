@@ -1,6 +1,6 @@
 package com.example.phoneaccessoryshop.web;
 
-import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
+import com.example.phoneaccessoryshop.model.dto.ModelDTO;
 import com.example.phoneaccessoryshop.service.BrandService;
 import com.example.phoneaccessoryshop.service.ModelService;
 import jakarta.validation.Valid;
@@ -11,30 +11,30 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/models")
-public class ModelsController {
+public class ModelController {
     private final BrandService brandService;
     private final ModelService modelService;
 
-    public ModelsController(BrandService brandService, ModelService modelService) {
+    public ModelController(BrandService brandService, ModelService modelService) {
         this.brandService = brandService;
         this.modelService = modelService;
     }
 
     @GetMapping()
-    public String addModels(Model model) {
-        if (!model.containsAttribute("addModelDTO")) {
-            model.addAttribute("addModelDTO", AddModelDTO.empty());
+    public String addModel(Model model) {
+        if (!model.containsAttribute("ModelDTO")) {
+            model.addAttribute("ModelDTO", ModelDTO.empty());
         }
 
         model.addAttribute("brands", brandService.getAllBrands());
-        model.addAttribute("modelView", modelService.getAllModelsView());
-        return "admin-add-model";
+        model.addAttribute("modelViews", modelService.getAllModelViews());
+        return "admin-model";
     }
 
     @PostMapping()
-    public String addModels(@ModelAttribute("addModelDTO") @Valid AddModelDTO addModelDTO, BindingResult bindingResult) {
-        modelService.addModel(addModelDTO);
-        return "admin-add-model";
+    public String addModel(@ModelAttribute("ModelDTO") @Valid ModelDTO modelDTO, BindingResult bindingResult) {
+        modelService.addModel(modelDTO);
+        return "admin-model";
     }
 
 

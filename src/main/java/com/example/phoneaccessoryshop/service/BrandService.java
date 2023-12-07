@@ -1,7 +1,7 @@
 package com.example.phoneaccessoryshop.service;
 
 import com.example.phoneaccessoryshop.model.dto.BrandDTO;
-import com.example.phoneaccessoryshop.model.dto.BrandViewDTO;
+import com.example.phoneaccessoryshop.model.dto.view.BrandViewDTO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface BrandService {
 
     List<BrandDTO> getAllBrands();
 
-    List<BrandViewDTO> getAllBrandsView();
+    List<BrandViewDTO> getAllBrandViews();
 
     void deleteBrand(Long id);
 }

@@ -16,30 +16,33 @@ import java.util.UUID;
 @Table(name = "products")
 public class ProductEntity extends BaseEntity {
 
+    @ManyToOne
+    private ModelEntity model;
     @NotNull
     private String name;
     @NotNull
     @JdbcTypeCode(Types.VARCHAR)
     private UUID uuid;
-    @ManyToOne
-    private PhoneModelEntity model;
     @NotEmpty
-    @Length(min = 10, max = 200)
+    @Length(min = 3, max = 200)
     private String description;
     @NotNull
     private String color;
     @Positive
     private BigDecimal price;
     @Positive
-    private BigDecimal discount;
+    private BigDecimal discountPrice;
     @FutureOrPresent
     private LocalDateTime discountStartDate;
     @Future
     private LocalDateTime discountEndDate;
     @Positive
     private Integer quantity;
-    @NotEmpty
+    @NotNull
     private String imageUrl;
+
+    public ProductEntity() {
+    }
 
     public String getName() {
         return name;
@@ -57,11 +60,11 @@ public class ProductEntity extends BaseEntity {
         this.uuid = productNumber;
     }
 
-    public PhoneModelEntity getModel() {
+    public ModelEntity getModel() {
         return model;
     }
 
-    public void setModel(PhoneModelEntity model) {
+    public void setModel(ModelEntity model) {
         this.model = model;
     }
 
@@ -89,12 +92,12 @@ public class ProductEntity extends BaseEntity {
         this.price = price;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
     }
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
+    public void setDiscountPrice(BigDecimal discount) {
+        this.discountPrice = discount;
     }
 
     public LocalDateTime getDiscountStartDate() {

@@ -20,12 +20,12 @@ public class OrderController {
     }
 
     @GetMapping("/order")
-    public String order(Model model, @ModelAttribute("deliveryAddressDTO") DeliveryAddressDTO deliveryAddressDTO) {
+    public String order(@ModelAttribute("deliveryAddressDTO") DeliveryAddressDTO deliveryAddressDTO) {
         return "order";
     }
 
     @PostMapping("/order/place")
-    public String placeOrder(Model model, @ModelAttribute("deliveryAddressDTO") DeliveryAddressDTO deliveryAddressDTO, Principal principal) {
+    public String placeOrder(@ModelAttribute("deliveryAddressDTO") DeliveryAddressDTO deliveryAddressDTO, Principal principal) {
         ordersService.placeOrder(deliveryAddressDTO, principal);
         return "order";
     }

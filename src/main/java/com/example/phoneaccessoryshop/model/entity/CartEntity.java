@@ -1,6 +1,7 @@
 package com.example.phoneaccessoryshop.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.List;
 @Entity
 @Table(name = "carts")
 public class CartEntity extends BaseEntity {
-
 
     @OneToMany(
             fetch = FetchType.EAGER,
@@ -18,6 +18,7 @@ public class CartEntity extends BaseEntity {
     @OneToOne
     private UserEntity user;
 
+    @Positive
     private BigDecimal totalCartPrice;
 
     public List<CartItemEntity> getCartItems() {

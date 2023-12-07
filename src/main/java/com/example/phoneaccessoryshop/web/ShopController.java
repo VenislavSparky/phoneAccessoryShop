@@ -34,11 +34,11 @@ public class ShopController {
         this.modelService = modelService;
     }
 
-    @GetMapping("/shop/products/")
-    public String shopProducts(Model model, @RequestParam(name = "searchBy", defaultValue = "") String searchBy, @RequestParam(name = "sortOption", defaultValue = "uuid") String sortOption, @RequestParam(name = "page", defaultValue = "1") int page) {
+    @GetMapping("/shop")
+    public String shopProducts(Model model, @RequestParam(name = "searchByModel", defaultValue = "") String searchByModel, @RequestParam(name = "sortOption", defaultValue = "uuid") String sortOption, @RequestParam(name = "page", defaultValue = "1") int page) {
 
         model.addAttribute("models", modelService.getAllModels());
-        getPage(model, searchBy, page, sortOption);
+        getPage(model, searchByModel, page, sortOption);
 
         return "shop";
     }
@@ -56,7 +56,7 @@ public class ShopController {
             allProductsSummary = productService.getAllProductsSummary(pageable);
         } else {
             Long modelId = modelService.findModelIdByName(searchByModel);
-            allProductsSummary = productService.getAllProductsSummaryByName(pageable,modelId);
+            allProductsSummary = productService.getAllProductsSummaryByModelId(pageable,modelId);
         }
 
         model.addAttribute("models", modelService.getAllModels());
@@ -68,9 +68,9 @@ public class ShopController {
     }
 
 
-    @PostMapping("/shop/cart/add/{productNumber}")
-    public String addToCart(@PathVariable("productNumber") UUID uuid, Principal principal) {
-        ProductEntity product = productService.findByUUID(uuid);
+    @PostMapping("/shop/cart/add/{productUUID}")
+    public String addToCart(@PathVariable("productUUID") UUID productUUID, Principal principal) {
+        ProductEntity product = productService.findByUUID(productUUID);
         String email = principal.getName();
         UserEntity user = userService.findByName(email);
         cartService.addCartItem(product, user);

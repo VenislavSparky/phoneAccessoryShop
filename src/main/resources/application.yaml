@@ -19,6 +19,13 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id:
+            client-secret:
 
 logging:
   level:

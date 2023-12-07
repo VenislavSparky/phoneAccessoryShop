@@ -1,4 +1,4 @@
-package com.example.phoneaccessoryshop.model.dto;
+package com.example.phoneaccessoryshop.model.dto.view;
 
 import com.example.phoneaccessoryshop.model.entity.CartItemEntity;
 

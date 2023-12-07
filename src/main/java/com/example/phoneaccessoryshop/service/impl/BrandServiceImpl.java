@@ -1,10 +1,8 @@
 package com.example.phoneaccessoryshop.service.impl;
 
 import com.example.phoneaccessoryshop.model.dto.BrandDTO;
-import com.example.phoneaccessoryshop.model.dto.BrandViewDTO;
-import com.example.phoneaccessoryshop.model.dto.ProductViewDTO;
-import com.example.phoneaccessoryshop.model.entity.PhoneBrandEntity;
-import com.example.phoneaccessoryshop.model.entity.ProductEntity;
+import com.example.phoneaccessoryshop.model.dto.view.BrandViewDTO;
+import com.example.phoneaccessoryshop.model.entity.BrandEntity;
 import com.example.phoneaccessoryshop.repository.BrandRepository;
 import com.example.phoneaccessoryshop.service.BrandService;
 import jakarta.transaction.Transactional;
@@ -24,27 +22,22 @@ public class BrandServiceImpl implements BrandService {
         this.modelMapper = modelMapper;
     }
 
-    public void addBrand(PhoneBrandEntity brand) {
-        brandRepository.save(brand);
-    }
-
     @Override
-    public boolean addBrand(BrandDTO addBrandDTO) {
-        PhoneBrandEntity brand = modelMapper.map(addBrandDTO, PhoneBrandEntity.class);
+    public boolean addBrand(BrandDTO brandDTO) {
+        BrandEntity brand = modelMapper.map(brandDTO, BrandEntity.class);
         brand.setModels(new ArrayList<>());
         brandRepository.save(brand);
-
-        return false;
+        return true;
     }
 
     @Override
     public List<BrandDTO> getAllBrands() {
-        List<PhoneBrandEntity> allBrands = brandRepository.getAllBrands();
+        List<BrandEntity> allBrands = brandRepository.getAllBrands();
         return allBrands.stream().map(brand -> modelMapper.map(brand, BrandDTO.class)).toList();
     }
 
     @Override
-    public List<BrandViewDTO> getAllBrandsView() {
+    public List<BrandViewDTO> getAllBrandViews() {
         return brandRepository.getAllBrands().stream().map(BrandServiceImpl::map).toList();
 
     }
@@ -55,7 +48,8 @@ public class BrandServiceImpl implements BrandService {
         brandRepository.deleteById(id);
     }
 
-    private static BrandViewDTO map(PhoneBrandEntity brand) {
+    private static BrandViewDTO map(BrandEntity brand) {
+
         int count = brand.getModels().stream().mapToInt(m -> m.getProducts().size()).sum();
 
         return new BrandViewDTO(brand.getName(), brand.getModels().size(), count, brand.getId());

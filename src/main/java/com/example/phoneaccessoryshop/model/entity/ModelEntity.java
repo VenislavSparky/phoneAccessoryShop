@@ -6,13 +6,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "phone_models")
-public class PhoneModelEntity extends BaseEntity {
+public class ModelEntity extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
 
     @ManyToOne
-    private PhoneBrandEntity brand;
+    private BrandEntity brand;
 
     @OneToMany(fetch = FetchType.EAGER,
             mappedBy = "model",
@@ -27,11 +27,11 @@ public class PhoneModelEntity extends BaseEntity {
         this.name = name;
     }
 
-    public PhoneBrandEntity getBrand() {
+    public BrandEntity getBrand() {
         return brand;
     }
 
-    public void setBrand(PhoneBrandEntity brand) {
+    public void setBrand(BrandEntity brand) {
         this.brand = brand;
     }
 

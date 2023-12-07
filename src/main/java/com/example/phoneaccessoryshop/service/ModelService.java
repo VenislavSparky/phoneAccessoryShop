@@ -1,17 +1,16 @@
 package com.example.phoneaccessoryshop.service;
 
-import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
-import com.example.phoneaccessoryshop.model.dto.ModelViewDTO;
-import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
+import com.example.phoneaccessoryshop.model.dto.ModelDTO;
+import com.example.phoneaccessoryshop.model.dto.view.ModelViewDTO;
 
 import java.util.List;
 
 public interface ModelService {
-    void addModel(AddModelDTO addModelDTO);
+    void addModel(ModelDTO modelDTO);
 
-    List<AddModelDTO> getAllModels();
+    List<ModelDTO> getAllModels();
 
-    List<ModelViewDTO> getAllModelsView();
+    List<ModelViewDTO> getAllModelViews();
 
     void deleteModel(Long id);
 

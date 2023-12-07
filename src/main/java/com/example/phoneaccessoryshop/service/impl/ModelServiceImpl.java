@@ -1,10 +1,9 @@
 package com.example.phoneaccessoryshop.service.impl;
 
-import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
-import com.example.phoneaccessoryshop.model.dto.BrandDTO;
-import com.example.phoneaccessoryshop.model.dto.ModelViewDTO;
-import com.example.phoneaccessoryshop.model.entity.PhoneBrandEntity;
-import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
+import com.example.phoneaccessoryshop.model.dto.ModelDTO;
+import com.example.phoneaccessoryshop.model.dto.view.ModelViewDTO;
+import com.example.phoneaccessoryshop.model.entity.BrandEntity;
+import com.example.phoneaccessoryshop.model.entity.ModelEntity;
 import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.repository.BrandRepository;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
@@ -19,7 +18,6 @@ public class ModelServiceImpl implements ModelService {
     private final ModelRepository modelRepository;
     private final BrandRepository brandRepository;
     private final ModelMapper modelMapper;
-    private List<PhoneModelEntity> allModels;
 
     public ModelServiceImpl(ModelRepository modelRepository, BrandRepository brandRepository, ModelMapper modelMapper) {
         this.modelRepository = modelRepository;
@@ -28,25 +26,25 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public void addModel(AddModelDTO addModelDTO) {
-        PhoneModelEntity model = new PhoneModelEntity();
+    public void addModel(ModelDTO modelDTO) {
+        ModelEntity model = new ModelEntity();
 
-        PhoneBrandEntity brand = brandRepository.findByName(addModelDTO.getBrandName());
+        BrandEntity brand = brandRepository.findByName(modelDTO.getBrandName());
 
-        model.setName(addModelDTO.getName());
+        model.setName(modelDTO.getName());
         model.setBrand(brand);
 
         modelRepository.save(model);
     }
 
     @Override
-    public List<AddModelDTO> getAllModels() {
-        allModels = modelRepository.getAllModels();
-        return allModels.stream().map(model -> modelMapper.map(model, AddModelDTO.class)).toList();
+    public List<ModelDTO> getAllModels() {
+        List<ModelEntity> allModels = modelRepository.getAllModels();
+        return allModels.stream().map(model -> modelMapper.map(model, ModelDTO.class)).toList();
     }
 
     @Override
-    public List<ModelViewDTO> getAllModelsView() {
+    public List<ModelViewDTO> getAllModelViews() {
         return modelRepository.getAllModels().stream().map(ModelServiceImpl::map).toList();
     }
 
@@ -56,11 +54,11 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public Long findModelIdByName(String searchBy) {
-    return modelRepository.findByName(searchBy).getId();
+    public Long findModelIdByName(String name) {
+    return modelRepository.findByName(name).getId();
     }
 
-    public static ModelViewDTO map(PhoneModelEntity model) {
+    public static ModelViewDTO map(ModelEntity model) {
 
         int totalQuantity = model.getProducts().stream().mapToInt(ProductEntity::getQuantity).sum();
 

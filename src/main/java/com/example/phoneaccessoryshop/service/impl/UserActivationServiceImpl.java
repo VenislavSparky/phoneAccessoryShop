@@ -47,13 +47,13 @@ public class UserActivationServiceImpl implements UserActivationService {
     }
 
     @Override
-    public String createActivationCode(String userEmail) {
+    public String createActivationCode(String email) {
 
         UserActivationCodeEntity userActivationCodeEntity = new UserActivationCodeEntity();
 
         userActivationCodeEntity.setActivationCode(generateActivationCode());
         userActivationCodeEntity.setCreated(Instant.now());
-        userActivationCodeEntity.setUser(userRepository.findByEmail(userEmail).orElseThrow(() -> new ObjectNotFoundException("User not found!")));
+        userActivationCodeEntity.setUser(userRepository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("User not found!")));
         userActivationCodeRepository.save(userActivationCodeEntity);
 
         return userActivationCodeEntity.getActivationCode();

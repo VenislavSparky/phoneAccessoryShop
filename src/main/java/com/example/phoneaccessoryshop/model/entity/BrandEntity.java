@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "phone_brands")
-public class PhoneBrandEntity extends BaseEntity {
+public class BrandEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
@@ -14,7 +14,7 @@ public class PhoneBrandEntity extends BaseEntity {
             fetch = FetchType.LAZY,
             mappedBy = "brand",cascade = CascadeType.REMOVE
     )
-    private List<PhoneModelEntity> models;
+    private List<ModelEntity> models;
 
     public String getName() {
         return name;
@@ -24,11 +24,11 @@ public class PhoneBrandEntity extends BaseEntity {
         this.name = name;
     }
 
-    public List<PhoneModelEntity> getModels() {
+    public List<ModelEntity> getModels() {
         return models;
     }
 
-    public void setModels(List<PhoneModelEntity> models) {
+    public void setModels(List<ModelEntity> models) {
         this.models = models;
     }
 }

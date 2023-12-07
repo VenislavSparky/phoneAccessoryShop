@@ -16,7 +16,6 @@ public class Config {
     }
 
     @Bean
-
     public Cloudinary getCloudinary() {
 
         Map config = new HashMap<String, String>();

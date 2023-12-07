@@ -1,8 +1,8 @@
 package com.example.phoneaccessoryshop.model.dto;
 
-public record DeliveryAddressDTO(String contactPerson,
+public record DeliveryAddressDTO(String contactPersonName,
                                  String contactPersonPhoneNumber,
                                  String district,
-                                 String populatedPlace,
+                                 String city,
                                  String address) {
 }

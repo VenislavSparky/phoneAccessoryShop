@@ -11,6 +11,7 @@ import com.example.phoneaccessoryshop.repository.DeliveryAddressRepository;
 import com.example.phoneaccessoryshop.repository.OrderRepository;
 import com.example.phoneaccessoryshop.repository.UserRepository;
 import com.example.phoneaccessoryshop.service.OrdersService;
+import com.example.phoneaccessoryshop.service.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,6 @@ public class OrdersServiceImpl implements OrdersService {
     private final CartRepository cartRepository;
     private final ModelMapper modelMapper;
 
-
     public OrdersServiceImpl(DeliveryAddressRepository deliveryAddressRepository, OrderRepository orderRepository, UserRepository userRepository, CartRepository cartRepository, ModelMapper modelMapper) {
         this.deliveryAddressRepository = deliveryAddressRepository;
         this.orderRepository = orderRepository;
@@ -36,14 +36,13 @@ public class OrdersServiceImpl implements OrdersService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     @Transactional
     public void placeOrder(DeliveryAddressDTO deliveryAddressDTO, Principal principal) {
         DeliveryAddressEntity deliveryAddress = deliveryAddressRepository.save(modelMapper.map(deliveryAddressDTO, DeliveryAddressEntity.class));
-        UserEntity user = userRepository.findByEmail(principal.getName()).orElse(null);
+        UserEntity user = userRepository.findByEmail(principal.getName()).orElseThrow(() -> new ObjectNotFoundException("User not found!"));
         CartEntity cart = cartRepository.findByUser(user);
-        OrderEntity order = new OrderEntity(deliveryAddress, cart, OrderStatusEnum.AWAITING_APPROVAL);
+        OrderEntity order = new OrderEntity(user.getEmail(),deliveryAddress, cart, OrderStatusEnum.AWAITING_APPROVAL);
         orderRepository.save(order);
         cart.setUser(null);
     }

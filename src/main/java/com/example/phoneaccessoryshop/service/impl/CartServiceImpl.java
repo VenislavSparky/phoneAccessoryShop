@@ -1,6 +1,6 @@
 package com.example.phoneaccessoryshop.service.impl;
 
-import com.example.phoneaccessoryshop.model.dto.CartViewDTO;
+import com.example.phoneaccessoryshop.model.dto.view.CartViewDTO;
 import com.example.phoneaccessoryshop.model.entity.CartEntity;
 import com.example.phoneaccessoryshop.model.entity.CartItemEntity;
 import com.example.phoneaccessoryshop.model.entity.ProductEntity;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 @Service
 public class CartServiceImpl implements CartService {
-
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
@@ -27,36 +26,35 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void addCartItem(ProductEntity product, UserEntity user) {
 
-        CartEntity userCart = cartRepository.findByUser(user);
+        CartEntity cart = cartRepository.findByUser(user);
 
-        if (userCart == null) {
-            userCart = new CartEntity();
-            userCart.setCartItems(new ArrayList<>());
-            userCart.setUser(user);
-            cartRepository.save(userCart);
+        if (cart == null) {
+            cart = new CartEntity();
+            cart.setCartItems(new ArrayList<>());
+            cart.setUser(user);
+            cartRepository.save(cart);
         }
 
-        CartItemEntity cartItem = cartItemRepository.findByCartIdAndProductId(userCart.getId(),product.getUuid());
+        CartItemEntity cartItem = cartItemRepository.findByCartIdAndProductUUID(cart.getId(),product.getUuid());
 
         if (cartItem == null) {
-            cartItemRepository.save(createCartItem(product, userCart));
+            cartItemRepository.save(createCartItem(product, cart));
         }else {
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
+            cartItem.setItemQuantity(cartItem.getItemQuantity() + 1);
         }
-
 
     }
 
     @Override
     @Transactional
     public void removeCartItem(ProductEntity product, UserEntity user) {
-        CartEntity userCart = cartRepository.findByUser(user);
-        CartItemEntity cartItem = cartItemRepository.findByCartIdAndProductId(userCart.getId(),product.getUuid());
+        CartEntity cart = cartRepository.findByUser(user);
+        CartItemEntity cartItem = cartItemRepository.findByCartIdAndProductUUID(cart.getId(),product.getUuid());
 
-        if (cartItem.getQuantity() > 1) {
-            cartItem.setQuantity(cartItem.getQuantity() - 1);
+        if (cartItem.getItemQuantity() > 1) {
+            cartItem.setItemQuantity(cartItem.getItemQuantity() - 1);
         } else {
-            userCart.getCartItems().remove(cartItem);
+            cart.getCartItems().remove(cartItem);
             cartItemRepository.delete(cartItem);
         }
 
@@ -64,17 +62,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public CartViewDTO getUserCart(UserEntity user) {
-        CartEntity userCart = cartRepository.findByUser(user);
+        CartEntity cart = cartRepository.findByUser(user);
 
-        if (userCart == null) {
-            userCart = new CartEntity();
-            userCart.setCartItems(new ArrayList<>());
-            userCart.setUser(user);
-            cartRepository.save(userCart);
+        if (cart == null) {
+            cart = new CartEntity();
+            cart.setCartItems(new ArrayList<>());
+            cart.setUser(user);
+            cartRepository.save(cart);
         }
 
-
-        return new CartViewDTO(userCart.getCartItems(), userCart.getTotalCartPrice());
+        return new CartViewDTO(cart.getCartItems(), cart.getTotalCartPrice());
     }
 
     public static CartItemEntity createCartItem(ProductEntity product, CartEntity cart) {

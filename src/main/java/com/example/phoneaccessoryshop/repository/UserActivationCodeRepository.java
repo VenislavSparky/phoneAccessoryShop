@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserActivationCodeRepository extends JpaRepository<UserActivationCodeEntity, Long> {
-
-
     UserActivationCodeEntity findByActivationCode(String activationCode);
+
 }

@@ -1,14 +1,25 @@
 package com.example.phoneaccessoryshop.model.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
-public class AddModelDTO {
+public class ModelDTO {
 
-    @NotEmpty
+    @NotNull
     private String brandName;
-
-    @NotEmpty
+    @NotNull
     private String name;
+
+    public static Object empty() {
+        return new ModelDTO(null,null);
+    }
+
+    public ModelDTO(String brandName, String name) {
+        this.brandName = brandName;
+        this.name = name;
+    }
+
+    public ModelDTO() {
+    }
 
     public String getBrandName() {
         return brandName;
@@ -24,17 +35,5 @@ public class AddModelDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public AddModelDTO() {
-    }
-
-    public AddModelDTO(String brandName, String name) {
-        this.brandName = brandName;
-        this.name = name;
-    }
-
-    public static Object empty() {
-        return new AddModelDTO(null,null);
     }
 }

@@ -5,6 +5,5 @@ import com.example.phoneaccessoryshop.model.enums.UserRoleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
-
     RoleEntity findRoleByRole(UserRoleEnum userRoleEnum);
 }

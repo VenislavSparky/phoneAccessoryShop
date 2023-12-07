@@ -31,7 +31,7 @@ public class PerformanceInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        // Additional actions after the request has been processed
+        logger.info("Handler method completed!");
     }
 }
 

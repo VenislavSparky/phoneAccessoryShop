@@ -1,8 +1,8 @@
 package com.example.phoneaccessoryshop.service.impl;
 
-import com.example.phoneaccessoryshop.model.dto.AddProductDTO;
+import com.example.phoneaccessoryshop.model.dto.ProductDTO;
 import com.example.phoneaccessoryshop.model.dto.ProductSummaryDTO;
-import com.example.phoneaccessoryshop.model.dto.ProductViewDTO;
+import com.example.phoneaccessoryshop.model.dto.view.ProductViewDTO;
 import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
 import com.example.phoneaccessoryshop.repository.ProductRepository;
@@ -10,7 +10,6 @@ import com.example.phoneaccessoryshop.service.ProductService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +30,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProduct(AddProductDTO addProductDTO) {
+    public void addProduct(ProductDTO productDTO) {
 
-        ProductEntity product = modelMapper.map(addProductDTO, ProductEntity.class);
-        product.setModel(modelRepository.findByName(addProductDTO.getModelName()));
+        ProductEntity product = modelMapper.map(productDTO, ProductEntity.class);
+        product.setModel(modelRepository.findByName(productDTO.getModelName()));
         product.setUuid(UUID.randomUUID());
         productRepository.save(product);
 
@@ -56,26 +55,38 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductSummaryDTO> getAllProductsSummaryByName(Pageable pageable, Long modelId) {
+    public Page<ProductSummaryDTO> getAllProductsSummaryByModelId(Pageable pageable, Long modelId) {
 
         return productRepository.findAllByModelId(modelId, pageable).map(ProductServiceImpl::mapAsSummary);
     }
 
     @Override
     @Transactional
-    public void deleteProduct(UUID productSN) {
-        ProductEntity productDelete = productRepository.findByUUID(productSN);
+    public void deleteProduct(UUID productUUID) {
+        ProductEntity productDelete = productRepository.findByUUID(productUUID);
         productRepository.delete(productDelete);
     }
 
     @Override
     @Transactional
-    public void editProduct(AddProductDTO addProductDTO) {
+    public void editProduct(ProductDTO productDTO) {
+        ProductEntity product = productRepository.findByUUID(productDTO.getProductUUID());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setColor(productDTO.getColor());
+        product.setPrice(productDTO.getPrice());
+        product.setDiscountPrice(productDTO.getDiscountPrice());
+        product.setDiscountStartDate(productDTO.getDiscountStartDate());
+        product.setDiscountEndDate(productDTO.getDiscountEndDate());
+        product.setQuantity(productDTO.getQuantity());
+        if (!(productDTO.getImageUrl() == null)) {
+            product.setImageUrl(productDTO.getImageUrl());
+        }
 
     }
 
     private static ProductSummaryDTO mapAsSummary(ProductEntity product) {
-        return new ProductSummaryDTO(product.getName(), product.getUuid().toString(), product.getPrice(), product.getDiscount(), product.getImageUrl());
+        return new ProductSummaryDTO(product.getName(), product.getUuid().toString(), product.getPrice(), product.getDiscountPrice(), product.getImageUrl());
     }
 
     private static ProductViewDTO map(ProductEntity product) {

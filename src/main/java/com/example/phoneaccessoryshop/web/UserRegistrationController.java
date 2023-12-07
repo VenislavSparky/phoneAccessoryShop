@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserRegistrationController {
 
     private final UserService userService;
@@ -42,12 +42,12 @@ public class UserRegistrationController {
             return modelAndView;
         }
 
-        return new ModelAndView("redirect:/users/login");
+        return new ModelAndView("redirect:/user/login");
     }
 
     @GetMapping("/activate/")
     public String activateUser(@RequestParam(name = "activation_code") String activationCode) {
         activationService.activateUser(activationCode);
-        return "redirect:/shop/products/";
+        return "redirect:/shop";
     }
 }

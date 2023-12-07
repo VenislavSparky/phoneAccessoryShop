@@ -12,19 +12,19 @@ import java.util.UUID;
 public class CartItemEntity extends BaseEntity {
     @ManyToOne
     private CartEntity cart;
-    private String name;
-    private String imageUrl;
-    private int quantity;
-    private BigDecimal price;
-    private UUID productId;
+    private String productName;
+    private String productImageURL;
+    private int itemQuantity;
+    private BigDecimal productPrice;
+    private UUID productUUID;
 
-    public CartItemEntity(CartEntity cart, String name, String imageUrl, int quantity, BigDecimal price, UUID productId) {
+    public CartItemEntity(CartEntity cart, String productName, String productImageURL, int itemQuantity, BigDecimal productPrice, UUID productUUID) {
         this.cart = cart;
-        this.name = name;
-        this.imageUrl = imageUrl;
-        this.quantity = quantity;
-        this.price = price;
-        this.productId = productId;
+        this.productName = productName;
+        this.productImageURL = productImageURL;
+        this.itemQuantity = itemQuantity;
+        this.productPrice = productPrice;
+        this.productUUID = productUUID;
     }
 
     public CartItemEntity() {
@@ -32,9 +32,8 @@ public class CartItemEntity extends BaseEntity {
     }
 
     public BigDecimal totalItemPrice() {
-        return price.multiply(BigDecimal.valueOf(quantity));
+        return productPrice.multiply(BigDecimal.valueOf(itemQuantity));
     }
-
 
     public CartEntity getCart() {
         return cart;
@@ -44,43 +43,43 @@ public class CartItemEntity extends BaseEntity {
         this.cart = cart;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductName(String name) {
+        this.productName = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getProductImageURL() {
+        return productImageURL;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setProductImageURL(String imageUrl) {
+        this.productImageURL = imageUrl;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getItemQuantity() {
+        return itemQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setItemQuantity(int quantity) {
+        this.itemQuantity = quantity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getProductPrice() {
+        return productPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setProductPrice(BigDecimal price) {
+        this.productPrice = price;
     }
 
-    public UUID getProductId() {
-        return productId;
+    public UUID getProductUUID() {
+        return productUUID;
     }
 
-    public void setProductId(UUID productId) {
-        this.productId = productId;
+    public void setProductUUID(UUID productId) {
+        this.productUUID = productId;
     }
 }

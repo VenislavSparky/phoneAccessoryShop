@@ -5,7 +5,6 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class UniqueUserEmailValidator implements ConstraintValidator<UniqueUserEmail, String> {
-
     private final UserRepository userRepository;
 
     public UniqueUserEmailValidator(UserRepository userRepository) {
@@ -13,9 +12,9 @@ public class UniqueUserEmailValidator implements ConstraintValidator<UniqueUserE
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(String email, ConstraintValidatorContext context) {
         return userRepository
-                .findByEmail(value)
+                .findByEmail(email)
                 .isEmpty();
     }
 }

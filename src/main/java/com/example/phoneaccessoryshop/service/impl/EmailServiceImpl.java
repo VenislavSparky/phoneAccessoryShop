@@ -12,8 +12,6 @@ import org.thymeleaf.context.Context;
 
 @Service
 public class EmailServiceImpl implements EmailService {
-
-
     private final TemplateEngine templateEngine;
     private final JavaMailSender javaMailSender;
     private final String shopEmail;
@@ -49,7 +47,7 @@ public class EmailServiceImpl implements EmailService {
         Context context = new Context();
         context.setVariable("username", username);
         context.setVariable("activation_code", activationCode);
-        return templateEngine.process("email/registration-email.html", context);
+        return templateEngine.process("email/activation-email.html", context);
     }
 
 }

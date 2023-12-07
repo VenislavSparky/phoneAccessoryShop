@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/brands")
-public class BrandsController {
+public class BrandController {
     private final BrandService brandService;
 
-    public BrandsController(BrandService brandService) {
+    public BrandController(BrandService brandService) {
         this.brandService = brandService;
     }
 
     @GetMapping()
-    public String addBrands(Model model, @ModelAttribute("addBrandDTO") BrandDTO addBrandDTO) {
-        model.addAttribute("brandView", brandService.getAllBrandsView());
-        return "admin-add-brand";
+    public String addBrand(Model model, @ModelAttribute("BrandDTO") BrandDTO brandDTO) {
+        model.addAttribute("brandView", brandService.getAllBrandViews());
+        return "admin-brand";
     }
 
     @PostMapping()
-    public String addBrands(Model model, @ModelAttribute("addBrandDTO") @Valid BrandDTO addBrandDTO, BindingResult bindingResult) {
-        brandService.addBrand(addBrandDTO);
-        model.addAttribute("brandView", brandService.getAllBrandsView());
-        return "admin-add-brand";
+    public String addBrand(Model model, @ModelAttribute("BrandDTO") @Valid BrandDTO brandDTO, BindingResult bindingResult) {
+        brandService.addBrand(brandDTO);
+        model.addAttribute("brandView", brandService.getAllBrandViews());
+        return "admin-brand";
     }
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {

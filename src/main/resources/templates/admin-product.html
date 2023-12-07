@@ -34,7 +34,7 @@
                                 id="registrationForm"
                                 th:action="@{/admin/products}"
                                 th:method="POST"
-                                th:object="${addProductDTO}"
+                                th:object="${productDTO}"
                                 enctype="multipart/form-data"
                         >
                             <div class="modal-body">
@@ -230,7 +230,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="product: ${products}" th:object="${product}">
-                        <th scope="row">1</th>
+                        <th th:text="*{}" scope="row">1</th>
                         <td th:text="*{brand()}">Samsung</td>
                         <td th:text="*{model()}">A54</td>
                         <td th:text="*{name()}">Black Case</td>

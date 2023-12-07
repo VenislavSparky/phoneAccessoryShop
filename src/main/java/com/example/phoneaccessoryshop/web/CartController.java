@@ -17,7 +17,6 @@ import java.util.UUID;
 
 @Controller
 public class CartController {
-
     private final CartService cartService;
     private final ProductService productService;
     private final UserService userService;

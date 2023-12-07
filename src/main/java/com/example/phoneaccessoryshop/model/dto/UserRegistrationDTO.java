@@ -3,7 +3,6 @@ package com.example.phoneaccessoryshop.model.dto;
 
 import com.example.phoneaccessoryshop.model.validation.UniqueUserEmail;
 import jakarta.validation.constraints.*;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 
 public class UserRegistrationDTO {
     @NotEmpty

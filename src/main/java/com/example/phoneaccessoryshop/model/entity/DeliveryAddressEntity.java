@@ -2,22 +2,28 @@ package com.example.phoneaccessoryshop.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "delivery_addresses")
 public class DeliveryAddressEntity extends BaseEntity {
-    private String contactPerson;
+    @NotNull
+    private String contactPersonName;
+    @NotNull
     private String contactPersonPhoneNumber;
+    @NotNull
     private String district;
-    private String populatedPlace;
+    @NotNull
+    private String city;
+    @NotNull
     private String address;
 
-    public String getContactPerson() {
-        return contactPerson;
+    public String getContactPersonName() {
+        return contactPersonName;
     }
 
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setContactPersonName(String contactPersonName) {
+        this.contactPersonName = contactPersonName;
     }
 
     public String getContactPersonPhoneNumber() {
@@ -36,12 +42,12 @@ public class DeliveryAddressEntity extends BaseEntity {
         this.district = district;
     }
 
-    public String getPopulatedPlace() {
-        return populatedPlace;
+    public String getCity() {
+        return city;
     }
 
-    public void setPopulatedPlace(String populatedPlace) {
-        this.populatedPlace = populatedPlace;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getAddress() {

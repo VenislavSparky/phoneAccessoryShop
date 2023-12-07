@@ -18,21 +18,21 @@
             <div th:each="cartItem: ${cartInfo.cartItems()}" class="item-container">
                 <div class="row align-items-center">
                     <div class="col-md-2 d-flex justify-content-center">
-                        <img th:src="${cartItem.getImageUrl()}" th:width="80px" th:height="80px" class="item-image">
+                        <img th:src="${cartItem.getProductImageURL()}" th:width="80px" th:height="80px" class="item-image">
                     </div>
                     <div class="col-md-6">
-                        <h5 th:text="${cartItem.getName()}" class="text-center">Item 1</h5>
-                        <p th:text="'Price: $' + ${cartItem.getPrice()}" class="text-center">Price: $25.00</p>
+                        <h5 th:text="${cartItem.getProductName()}" class="text-center">Item 1</h5>
+                        <p th:text="'Price: $' + ${cartItem.getProductPrice()}" class="text-center">Price: $25.00</p>
                     </div>
                     <div class="col-md-4">
                         <div class="quantity-arrows">
                             <form th:method="delete"
-                                  th:action="@{/cart/remove/{productNumber}(productNumber=${cartItem.getProductId()})}" style="display:inline" >
+                                  th:action="@{/cart/remove/{productNumber}(productNumber=${cartItem.getProductUUID()})}" style="display:inline" >
                                 <button type="submit" class="btn btn-danger btn-sm "><i class="fas fa-minus"></i></button>
                             </form>
-                            <span th:text="${cartItem.getQuantity()}" class="badge rounded-pill text-bg-primary">1</span>
+                            <span th:text="${cartItem.getItemQuantity()}" class="badge rounded-pill text-bg-primary">1</span>
                             <form th:method="post"
-                                  th:action="@{/cart/add/{productNumber}(productNumber=${cartItem.getProductId()})}" style="display:inline" >
+                                  th:action="@{/cart/add/{productNumber}(productNumber=${cartItem.getProductUUID()})}" style="display:inline" >
                                 <button type="submit" class="btn btn-success btn-sm "><i class="fas fa-plus"></i></button>
                             </form>
 

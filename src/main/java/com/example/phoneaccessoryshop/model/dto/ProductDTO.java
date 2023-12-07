@@ -1,55 +1,51 @@
 package com.example.phoneaccessoryshop.model.dto;
 
-import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class AddProductDTO {
-
+public class ProductDTO {
+    private Long id;
     @NotNull
     private String name;
     @NotNull
     @JdbcTypeCode(Types.VARCHAR)
-    private UUID productNumber;
+    private UUID productUUID;
     private String modelName;
     @NotEmpty
-    @Length(min = 10, max = 200)
+    @Length(min = 3, max = 200)
     private String description;
     @NotNull
     private String color;
     @Positive
     private BigDecimal price;
     @Positive
-    private BigDecimal discount;
+    private BigDecimal discountPrice;
     @FutureOrPresent
     private LocalDateTime discountStartDate;
     @Future
     private LocalDateTime discountEndDate;
     @Positive
     private Integer quantity;
-
+    @NotNull
     private String imageUrl;
 
-    public AddProductDTO() {
+    public ProductDTO() {
     }
 
-    public AddProductDTO(String name, UUID productNumber, String modelName, String description, String color, BigDecimal price, BigDecimal discount, LocalDateTime discountStartDate, LocalDateTime discountEndDate, Integer quantity, String imageUrl) {
+    public ProductDTO(String name, UUID productUUID, String modelName, String description, String color, BigDecimal price, BigDecimal discountPrice, LocalDateTime discountStartDate, LocalDateTime discountEndDate, Integer quantity, String imageUrl) {
         this.name = name;
-        this.productNumber = productNumber;
+        this.productUUID = productUUID;
         this.modelName = modelName;
         this.description = description;
         this.color = color;
         this.price = price;
-        this.discount = discount;
+        this.discountPrice = discountPrice;
         this.discountStartDate = discountStartDate;
         this.discountEndDate = discountEndDate;
         this.quantity = quantity;
@@ -58,7 +54,15 @@ public class AddProductDTO {
     }
 
     public static Object empty() {
-        return new AddProductDTO(null, null, null, null, null, null, null, null, null, null, null);
+        return new ProductDTO(null, null, null, null, null, null, null, null, null, null, null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getImageUrl() {
@@ -77,12 +81,12 @@ public class AddProductDTO {
         this.name = name;
     }
 
-    public UUID getProductNumber() {
-        return productNumber;
+    public UUID getProductUUID() {
+        return productUUID;
     }
 
-    public void setProductNumber(UUID productNumber) {
-        this.productNumber = productNumber;
+    public void setProductUUID(UUID productUUID) {
+        this.productUUID = productUUID;
     }
 
     public String getModelName() {
@@ -117,12 +121,12 @@ public class AddProductDTO {
         this.price = price;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
     }
 
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
+    public void setDiscountPrice(BigDecimal discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public LocalDateTime getDiscountStartDate() {
