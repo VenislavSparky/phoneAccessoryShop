@@ -60,7 +60,8 @@
                             <span th:text="'$' + ${cartInfo.totalCartPrice() + 5.50}" class="badge rounded-pill text-bg-primary">$93.50</span>
                         </li>
                     </ul>
-                    <button type="button" class="btn btn-success btn-block mt-3">Checkout</button>
+                    <button type="submit" class="btn btn-success btn-block mt-3">
+                        <a class="link" href="/order">Continue</a></button>
                 </div>
             </div>
         </div>

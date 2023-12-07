@@ -7,12 +7,13 @@ import com.example.phoneaccessoryshop.repository.UserRepository;
 import com.example.phoneaccessoryshop.service.EmailService;
 import com.example.phoneaccessoryshop.service.UserActivationService;
 import com.example.phoneaccessoryshop.service.exception.ObjectNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -35,12 +36,14 @@ public class UserActivationServiceImpl implements UserActivationService {
     @Override
     public void userRegistered(UserRegisteredEvent event) {
         String activationCode = createActivationCode(event.getEmail());
-        emailService.sendRegistrationEmail(event.getEmail(), event.getUsername(),activationCode);
+        emailService.sendRegistrationEmail(event.getEmail(), event.getUsername(), activationCode);
     }
 
     @Override
+    @Transactional
     public void cleanUpObsoleteActivationLinks() {
-
+        List<UserActivationCodeEntity> allCodes = userActivationCodeRepository.findAll();
+        allCodes.stream().filter(c -> Instant.now().isAfter(c.getCreated().plusSeconds(600))).forEach(userActivationCodeRepository::delete);
     }
 
     @Override
@@ -54,6 +57,13 @@ public class UserActivationServiceImpl implements UserActivationService {
         userActivationCodeRepository.save(userActivationCodeEntity);
 
         return userActivationCodeEntity.getActivationCode();
+    }
+
+    @Override
+    @Transactional
+    public void activateUser(String activationCode) {
+        UserActivationCodeEntity userToActivate = userActivationCodeRepository.findByActivationCode(activationCode);
+        userToActivate.getUser().setActive(true);
     }
 
     private String generateActivationCode() {

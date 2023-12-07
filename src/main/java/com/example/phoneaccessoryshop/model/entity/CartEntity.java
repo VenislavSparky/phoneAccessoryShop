@@ -40,7 +40,7 @@ public class CartEntity extends BaseEntity {
         return getCartItems().stream().map(CartItemEntity::totalItemPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public void setTotalCartPrice(BigDecimal totalCartPrice) {
-        this.totalCartPrice = totalCartPrice;
+    public void setTotalCartPrice() {
+        this.totalCartPrice = getTotalCartPrice();
     }
 }

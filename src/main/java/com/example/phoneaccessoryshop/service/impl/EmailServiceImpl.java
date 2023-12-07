@@ -36,7 +36,7 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setFrom(shopEmail);
             mimeMessageHelper.setReplyTo(shopEmail);
             mimeMessageHelper.setSubject("Welcome to phoneAccessoryBulgaria!");
-            mimeMessageHelper.setText(generateRegistrationEmailBody(username),true);
+            mimeMessageHelper.setText(generateRegistrationEmailBody(username,activationCode),true);
 
             javaMailSender.send(mimeMessageHelper.getMimeMessage());
 
@@ -45,10 +45,11 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
-    private String generateRegistrationEmailBody(String username) {
+    private String generateRegistrationEmailBody(String username,String activationCode) {
         Context context = new Context();
         context.setVariable("username", username);
-        return templateEngine.process("registration-email", context);
+        context.setVariable("activation_code", activationCode);
+        return templateEngine.process("email/registration-email.html", context);
     }
 
 }

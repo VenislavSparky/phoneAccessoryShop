@@ -21,8 +21,8 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(
                 authorizeRequest -> authorizeRequest
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/users/login", "/users/register","/users/login-error").permitAll()
                         .requestMatchers("/admin/panel").hasRole(UserRoleEnum.ADMIN.name())
+                        .requestMatchers("/users/login","/users/activate/", "/", "/shop/products/" , "/users/register", "/users/login-error", "/error").permitAll()
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin -> {

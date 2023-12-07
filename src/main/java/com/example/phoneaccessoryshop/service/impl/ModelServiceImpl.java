@@ -55,6 +55,11 @@ public class ModelServiceImpl implements ModelService {
         modelRepository.deleteById(id);
     }
 
+    @Override
+    public Long findModelIdByName(String searchBy) {
+    return modelRepository.findByName(searchBy).getId();
+    }
+
     public static ModelViewDTO map(PhoneModelEntity model) {
 
         int totalQuantity = model.getProducts().stream().mapToInt(ProductEntity::getQuantity).sum();

@@ -1,14 +1,12 @@
 package com.example.phoneaccessoryshop.web;
 
 import com.example.phoneaccessoryshop.model.dto.UserRegistrationDTO;
+import com.example.phoneaccessoryshop.service.UserActivationService;
 import com.example.phoneaccessoryshop.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -16,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserRegistrationController {
 
     private final UserService userService;
+    private final UserActivationService activationService;
 
-    public UserRegistrationController(UserService userService) {
+    public UserRegistrationController(UserService userService, UserActivationService activationService) {
         this.userService = userService;
+        this.activationService = activationService;
     }
 
     @GetMapping("/register")
@@ -42,9 +42,12 @@ public class UserRegistrationController {
             return modelAndView;
         }
 
-
-
         return new ModelAndView("redirect:/users/login");
     }
 
+    @GetMapping("/activate/")
+    public String activateUser(@RequestParam(name = "activation_code") String activationCode) {
+        activationService.activateUser(activationCode);
+        return "redirect:/shop/products/";
+    }
 }

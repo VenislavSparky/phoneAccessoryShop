@@ -5,7 +5,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.Types;
 import java.time.LocalDateTime;
@@ -34,7 +36,7 @@ public class AddProductDTO {
     private LocalDateTime discountEndDate;
     @Positive
     private Integer quantity;
-    @NotEmpty
+
     private String imageUrl;
 
     public AddProductDTO() {
@@ -52,10 +54,19 @@ public class AddProductDTO {
         this.discountEndDate = discountEndDate;
         this.quantity = quantity;
         this.imageUrl = imageUrl;
+
     }
 
     public static Object empty() {
-        return new AddProductDTO(null,null,null,null,null,null,null,null,null,null,null);
+        return new AddProductDTO(null, null, null, null, null, null, null, null, null, null, null);
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getName() {
@@ -138,11 +149,5 @@ public class AddProductDTO {
         this.quantity = quantity;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }

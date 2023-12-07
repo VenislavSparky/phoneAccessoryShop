@@ -10,8 +10,6 @@ import com.example.phoneaccessoryshop.repository.CartRepository;
 import com.example.phoneaccessoryshop.service.CartService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 @Service
@@ -31,21 +29,21 @@ public class CartServiceImpl implements CartService {
 
         CartEntity userCart = cartRepository.findByUser(user);
 
-        if (userCart != null) {
-            CartItemEntity cartItem = cartItemRepository.findByProductId(product.getUuid());
-            if (cartItem != null) {
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-            } else {
-                cartItemRepository.saveAndFlush(createCartItem(product, userCart));
-
-            }
-        } else  {
+        if (userCart == null) {
             userCart = new CartEntity();
             userCart.setCartItems(new ArrayList<>());
             userCart.setUser(user);
             cartRepository.save(userCart);
-            cartItemRepository.save(createCartItem(product, userCart));
         }
+
+        CartItemEntity cartItem = cartItemRepository.findByCartIdAndProductId(userCart.getId(),product.getUuid());
+
+        if (cartItem == null) {
+            cartItemRepository.save(createCartItem(product, userCart));
+        }else {
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+        }
+
 
     }
 
@@ -53,7 +51,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void removeCartItem(ProductEntity product, UserEntity user) {
         CartEntity userCart = cartRepository.findByUser(user);
-        CartItemEntity cartItem = cartItemRepository.findByProductId(product.getUuid());
+        CartItemEntity cartItem = cartItemRepository.findByCartIdAndProductId(userCart.getId(),product.getUuid());
 
         if (cartItem.getQuantity() > 1) {
             cartItem.setQuantity(cartItem.getQuantity() - 1);
@@ -67,6 +65,15 @@ public class CartServiceImpl implements CartService {
     @Override
     public CartViewDTO getUserCart(UserEntity user) {
         CartEntity userCart = cartRepository.findByUser(user);
+
+        if (userCart == null) {
+            userCart = new CartEntity();
+            userCart.setCartItems(new ArrayList<>());
+            userCart.setUser(user);
+            cartRepository.save(userCart);
+        }
+
+
         return new CartViewDTO(userCart.getCartItems(), userCart.getTotalCartPrice());
     }
 

@@ -7,6 +7,7 @@ import com.example.phoneaccessoryshop.model.entity.ProductEntity;
 import com.example.phoneaccessoryshop.repository.ModelRepository;
 import com.example.phoneaccessoryshop.repository.ProductRepository;
 import com.example.phoneaccessoryshop.service.ProductService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ModelRepository modelRepository;
     private final ModelMapper modelMapper;
+
 
     public ProductServiceImpl(ProductRepository productRepository, ModelRepository modelRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
@@ -51,6 +53,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductEntity findByUUID(UUID uuid) {
         return productRepository.findByUUID(uuid);
+    }
+
+    @Override
+    public Page<ProductSummaryDTO> getAllProductsSummaryByName(Pageable pageable, Long modelId) {
+
+        return productRepository.findAllByModelId(modelId, pageable).map(ProductServiceImpl::mapAsSummary);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProduct(UUID productSN) {
+        ProductEntity productDelete = productRepository.findByUUID(productSN);
+        productRepository.delete(productDelete);
+    }
+
+    @Override
+    @Transactional
+    public void editProduct(AddProductDTO addProductDTO) {
+
     }
 
     private static ProductSummaryDTO mapAsSummary(ProductEntity product) {

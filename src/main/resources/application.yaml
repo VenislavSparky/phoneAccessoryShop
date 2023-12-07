@@ -22,9 +22,9 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.orm.jdbc.bind: TRACE
-    org.springframework.security: TRACE
+    org.hibernate.SQL:
+    org.hibernate.orm.jdbc.bind:
+    org.springframework.security:
 
 mail:
   phoneAccessoryMail: "phoneAccessoryBulgaria@example.com"

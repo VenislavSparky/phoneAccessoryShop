@@ -13,9 +13,9 @@ public class ActivationLinkCleanupScheduler {
         this.userActivationService = userActivationService;
     }
 
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(fixedRate = 600000)
     public void cleanUp(){
-        System.out.println("trigger");
+        System.out.println("Cleaning Activation Codes....");
         userActivationService.cleanUpObsoleteActivationLinks();
     }
 }

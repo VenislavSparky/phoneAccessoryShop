@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar}"></div>
+
+<div class="container mt-5">
+    <h2>Delivery Address</h2>
+    <form id="orderForm"
+          th:action="@{/order/place}"
+          th:method="POST"
+          th:object="${deliveryAddressDTO}">
+        <div class="form-group mt-2">
+            <label for="contactPerson">Contact Person:</label>
+            <input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="contactPersonPhoneNumber">Contact Person Phone Number:</label>
+            <input type="tel" class="form-control" id="contactPersonPhoneNumber" name="contactPersonPhoneNumber" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="district">District:</label>
+            <input type="text" class="form-control" id="district" name="district" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="populatedPlace">Populated Place:</label>
+            <input type="text" class="form-control" id="populatedPlace" name="populatedPlace" required>
+        </div>
+        <div class="form-group mt-2">
+            <label for="address">Address:</label>
+            <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Place Order</button>
+    </form>
+</div>
+</body>
+</html>

@@ -8,5 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItemEntity, Long> {
-    CartItemEntity findByProductId(UUID uuid);
+    CartItemEntity findByCartIdAndProductId(Long cartId, UUID productId);
 }

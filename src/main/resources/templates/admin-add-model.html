@@ -80,7 +80,7 @@
                         <th scope="col" class="text-center">Name</th>
                         <th scope="col" class="text-center">Products Count</th>
                         <th scope="col" class="text-center" >Total Quantity</th>
-                        <th scope="col" class="text-center" width="240">Action</th>
+                        <th scope="col" class="text-center" style="width: 125px">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -92,10 +92,6 @@
                         <td th:text="*{totalQuantity()}" class="text-center align-middle">200</td>
                         <td class="text-center align-middle">
                             <div class="container align-middle">
-                                <form th:method="update"
-                                      th:action="@{/admin/models/{modelId}(modelId=*{id})}" style="display:inline" >
-                                    <button type="submit" class="btn btn-warning btn-sm "><i class="fas fa-edit"></i> Edit</button>
-                                </form>
                                 <form th:method="delete"
                                       th:action="@{/admin/models/{modelId}(modelId=*{id})}" style="display:inline">
                                     <button type="submit"  class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>

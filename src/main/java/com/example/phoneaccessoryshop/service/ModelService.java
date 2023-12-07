@@ -2,6 +2,7 @@ package com.example.phoneaccessoryshop.service;
 
 import com.example.phoneaccessoryshop.model.dto.AddModelDTO;
 import com.example.phoneaccessoryshop.model.dto.ModelViewDTO;
+import com.example.phoneaccessoryshop.model.entity.PhoneModelEntity;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface ModelService {
     List<ModelViewDTO> getAllModelsView();
 
     void deleteModel(Long id);
+
+    Long findModelIdByName(String searchBy);
 }

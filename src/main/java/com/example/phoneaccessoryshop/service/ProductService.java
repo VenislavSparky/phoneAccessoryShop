@@ -18,4 +18,10 @@ public interface ProductService {
     Page<ProductSummaryDTO> getAllProductsSummary(Pageable pageable);
 
     ProductEntity findByUUID(UUID uuid);
+
+    Page<ProductSummaryDTO> getAllProductsSummaryByName(Pageable pageable, Long modelId);
+
+    void deleteProduct(UUID productSN);
+
+    void editProduct(AddProductDTO addProductDTO);
 }

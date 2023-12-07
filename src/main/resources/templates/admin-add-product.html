@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="~{fragments/head}">
     <title>Add Brand</title>
 </head>
 <body>
-
 <div th:replace="~{fragments/navbar}"></div>
 
 <div class="container">
@@ -15,116 +13,174 @@
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBrandModal">
                 Add Product
             </button>
-            <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addBrandModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addBrandModalTitle"
+                 aria-hidden="true">
+
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addBrandModalTitle">
-                                Brand
-                            </h5>
-                            <button type="button" class="close btn btn-light" data-bs-dismiss="modal" aria-label="Close">
+                            <h5 class="modal-title" id="addBrandModalTitle">Brand</h5>
+                            <button
+                                    type="button"
+                                    class="close btn btn-light"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            >
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                        <form id="registrationForm"
-                              th:action="@{/admin/products}"
-                              th:method="POST"
-                              th:object="${addProductDTO}">
-                        <div class="modal-body">
-                            <select id="modelName"
-                                    th:name="modelName"
-                                    th:errorclass="is-invalid"
-                                    class="form-select">
-                                <option value="">- Select a Model -</option>
-                                <optgroup label="Model:">
-                                    <option
-                                            th:each="model : ${models}"
-                                            th:text="${model.getName()}"
-                                            th:value="${model.getName()}"
-                                            th:selected="*{modelName} == ${model.name}">
-                                        Model
-                                    </option>
-                                </optgroup>
-                            </select>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="text" name="name" class="form-control" id="name"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="name">
-                                    Name:
-                                </label>
-                            </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="text" name="description" class="form-control" id="description"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="description">
-                                    Description:
-                                </label>
-                            </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="text" name="color" class="form-control" id="color"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="color">
-                                    Color:
-                                </label>
-                            </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="number" min="1" step="any" name="price" class="form-control" id="price"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="price">
-                                    Price:
-                                </label>
-                            </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="number" min="1" step="any" name="discount" class="form-control" id="discount"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="discount">
-                                    Discount Price:
-                                </label>
+                        <form
+                                id="registrationForm"
+                                th:action="@{/admin/products}"
+                                th:method="POST"
+                                th:object="${addProductDTO}"
+                                enctype="multipart/form-data"
+                        >
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <select id="modelName" th:name="modelName" th:errorclass="is-invalid"
+                                                class="form-select">
+                                            <option value="">- Select a Model -</option>
+                                            <optgroup label="Model:">
+                                                <option
+                                                        th:each="model : ${models}"
+                                                        th:text="${model.getName()}"
+                                                        th:value="${model.getName()}"
+                                                        th:selected="*{modelName} == ${model.name}">
+                                                    Model
+                                                </option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="text"
+                                                    name="name"
+                                                    class="form-control"
+                                                    id="name"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="name"> Name: </label>
+                                        </div>
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="text"
+                                                    name="description"
+                                                    class="form-control"
+                                                    id="description"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="description"> Description: </label>
+                                        </div>
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="text"
+                                                    name="color"
+                                                    class="form-control"
+                                                    id="color"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="color"> Color: </label>
+                                        </div>
+
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="number"
+                                                    min="1"
+                                                    step="any"
+                                                    name="price"
+                                                    class="form-control"
+                                                    id="price"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="price"> Price: </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col">
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="number"
+                                                    min="1"
+                                                    step="any"
+                                                    name="discount"
+                                                    class="form-control"
+                                                    id="discount"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="discount"> Discount Price: </label>
+                                        </div>
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="datetime-local"
+                                                    name="discountStartDate"
+                                                    class="form-control"
+                                                    id="discountStartDate"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="discountStartDate">
+                                                DiscountStartDate:
+                                            </label>
+                                        </div>
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="datetime-local"
+                                                    name="discountEndDate"
+                                                    class="form-control"
+                                                    id="discountEndDate"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="discountEndDate">
+                                                DiscountEndDate:
+                                            </label>
+                                        </div>
+                                        <div class="mb-3 mt-3 form-floating has-validation">
+                                            <input
+                                                    type="number"
+                                                    name="quantity"
+                                                    class="form-control"
+                                                    id="quantity"
+                                                    aria-describedby="nameError"
+                                                    required
+                                                    placeholder="A54"
+                                            />
+                                            <label for="quantity"> Quantity: </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label"
+                                        >Select image:</label
+                                        >
+                                        <input
+                                                name="image"
+                                                class="form-control"
+                                                type="file"
+                                                id="formFile"
+                                        />
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="datetime-local" name="discountStartDate" class="form-control" id="discountStartDate"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="discountStartDate">
-                                    DiscountStartDate:
-                                </label>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="datetime-local" name="discountEndDate" class="form-control" id="discountEndDate"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="discountEndDate">
-                                    DiscountEndDate:
-                                </label>
-                            </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="number" name="quantity" class="form-control" id="quantity"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="quantity">
-                                    Quantity:
-                                </label>
-                            </div>
-                            <div class="mb-3 mt-3 form-floating has-validation">
-                                <input type="url" name="imageUrl" class="form-control" id="imageUrl"
-                                       aria-describedby="nameError" required
-                                       placeholder="A54">
-                                <label for="imageUrl">
-                                    Image URL:
-                                </label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">
-                                Add
-                            </button>
-                        </div>
                         </form>
                     </div>
                 </div>
@@ -134,14 +190,32 @@
             <div class="col-md-3 col-lg-2">
                 <div class="bg-white" id="sidebar-wrapper">
                     <div class="list-group list-group-flush mb-3">
-                        <a href="/admin/brands" class="list-group-item list-group-item-action second-text fw-bold text-center">Brands</a>
-                        <a href="/admin/models" class="list-group-item list-group-item-action second-text fw-bold text-center">Models</a>
-                        <a href="/admin/products" class="list-group-item list-group-item-action second-text fw-bold text-center active">Products</a>
-                        <a href="/admin/orders" class="list-group-item list-group-item-action second-text fw-bold text-center">Orders</a>
+                        <a
+                                href="/admin/brands"
+                                class="list-group-item list-group-item-action second-text fw-bold text-center"
+                        >Brands</a
+                        >
+                        <a
+                                href="/admin/models"
+                                class="list-group-item list-group-item-action second-text fw-bold text-center"
+                        >Models</a
+                        >
+                        <a
+                                href="/admin/products"
+                                class="list-group-item list-group-item-action second-text fw-bold text-center active"
+                        >Products</a
+                        >
+                        <a
+                                href="/admin/orders"
+                                class="list-group-item list-group-item-action second-text fw-bold text-center"
+                        >Orders</a
+                        >
                     </div>
                 </div>
             </div>
-            <div class="col-md-9 col-lg-10 table-responsive custom-table-container">
+            <div
+                    class="col-md-9 col-lg-10 table-responsive custom-table-container"
+            >
                 <table class="table bg-white rounded shadow-sm table-hover">
                     <thead class="sticky-header">
                     <tr>
@@ -151,18 +225,42 @@
                         <th scope="col">Product</th>
                         <th scope="col">Product SN</th>
                         <th scope="col" class="text-center">Quantity</th>
+                        <th scope="col" class="text-center" style="width: 240px">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  th:each="product: ${products}"
-                         th:object="${product}">
+                    <tr th:each="product: ${products}" th:object="${product}">
                         <th scope="row">1</th>
                         <td th:text="*{brand()}">Samsung</td>
                         <td th:text="*{model()}">A54</td>
                         <td th:text="*{name()}">Black Case</td>
                         <td th:text="*{productSN()}">12312351</td>
                         <td th:text="*{quantity()}" class="text-center">4</td>
+                        <td class="text-center align-middle">
+
+                            <div style="display:inline-flex">
+                                <form th:method="get"
+                                      th:action="@{/admin/products/edit/{productSN}(productSN=*{productSN()})}"
+                                      style="display:inline">
+                                    <button type="submit" class="btn btn-warning btn-sm ">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </form>
+                            </div>
+                            <div style="display:inline-flex">
+                                <form th:method="delete"
+                                      th:action="@{/admin/products/delete/{productSN}(productSN=*{productSN()})}"
+                                      style="display:inline">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </td>
                     </tr>
+
+
                     </tbody>
                 </table>
             </div>

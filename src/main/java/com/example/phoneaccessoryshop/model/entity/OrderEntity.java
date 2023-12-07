@@ -1,8 +1,7 @@
 package com.example.phoneaccessoryshop.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.example.phoneaccessoryshop.model.enums.OrderStatusEnum;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "orders")
@@ -11,8 +10,23 @@ public class OrderEntity extends BaseEntity {
     @OneToOne
     DeliveryAddressEntity deliveryAddress;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     CartEntity cart;
+
+
+
+    @Enumerated(value = EnumType.ORDINAL)
+    OrderStatusEnum statusEnum;
+
+    public OrderEntity(DeliveryAddressEntity deliveryAddress, CartEntity cart, OrderStatusEnum statusEnum) {
+        this.deliveryAddress = deliveryAddress;
+        this.cart = cart;
+        this.statusEnum = statusEnum;
+    }
+
+    public OrderEntity() {
+    }
 
     public DeliveryAddressEntity getDeliveryAddress() {
         return deliveryAddress;
@@ -28,5 +42,13 @@ public class OrderEntity extends BaseEntity {
 
     public void setCart(CartEntity cart) {
         this.cart = cart;
+    }
+
+    public OrderStatusEnum getStatusEnum() {
+        return statusEnum;
+    }
+
+    public void setStatusEnum(OrderStatusEnum statusEnum) {
+        this.statusEnum = statusEnum;
     }
 }
